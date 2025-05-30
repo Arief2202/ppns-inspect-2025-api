@@ -142,14 +142,14 @@
             if($inspeksi == 'belum'){
                 $allApar = mysqli_query($conn, "SELECT * FROM p3k");
                 while($data = mysqli_fetch_object($allApar)){
-                    $data2 = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM inspeksi_apar WHERE apar_id = $data->id AND created_at > '$start_date' AND created_at < '$end_date'"));
+                    $data2 = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM inspeksi_p3k WHERE kotak_id = $data->id AND created_at > '$start_date' AND created_at < '$end_date'"));
                     if($data2 == null) $datas[$arr++] = $data;
                 }
             }
             else{
                 while($data = mysqli_fetch_object($result)){
                     $resultUser = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM users WHERE id = $data->user_id"));
-                    $resultP3K = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM apar WHERE id = $data->apar_id"));
+                    $resultP3K = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM p3k WHERE id = $data->kotak_id"));
                     $data->user = $resultUser;
                     $data->p3k = $resultP3K;
                     $datas[$arr++] = $data;
