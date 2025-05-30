@@ -122,7 +122,7 @@
             if(isset($_GET['kerusakan'])) $kerusakan = $_GET['kerusakan'];
         }
         
-        if($start_date!=null & $end_date != null){
+        if($start_date!=null && $end_date != null){
             $sqlll = "SELECT * FROM inspeksi_p3k WHERE created_at > '$start_date' AND created_at < '$end_date'";
 
             if($kerusakan == "tidak") $sqlll .= " AND `perban5` = 'Ada' AND `perban10` = 'Ada' AND `plester125` = 'Ada' AND `plester_cepat` = 'Ada' AND `kapas` = 'Ada' AND `mitella` = 'Ada' AND `gunting` = 'Berfungsi' AND `peniti` = 'Ada' AND `sarung_tangan` = 'Ada' AND `masker` = 'Ada' AND `pinset` = 'Berfungsi' AND `lampu_senter` = 'Berfungsi' AND `gelas_cuci_mata` = 'Ada' AND `kantong_plastik` = 'Ada' AND `aquades` = 'Ada'";
@@ -136,9 +136,7 @@
         if($result){
             http_response_code(200);
             if($inspeksi == 'belum'){
-                if($kadaluarsa == "semua") $allApar = mysqli_query($conn, "SELECT * FROM apar");
-                if($kadaluarsa == "belum") $allApar = mysqli_query($conn, "SELECT * FROM apar  WHERE `tanggal_kadaluarsa` > '".date("Y-m-d h:i:s")."'");
-                if($kadaluarsa == "sudah") $allApar = mysqli_query($conn, "SELECT * FROM apar WHERE `tanggal_kadaluarsa` < '".date("Y-m-d h:i:s")."'");
+                $allApar = mysqli_query($conn, "SELECT * FROM p3k");
                 while($data = mysqli_fetch_object($allApar)){
                     $data2 = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM inspeksi_apar WHERE apar_id = $data->id AND created_at > '$start_date' AND created_at < '$end_date'"));
                     if($data2 == null) $datas[$arr++] = $data;
@@ -146,31 +144,11 @@
             }
             else{
                 while($data = mysqli_fetch_object($result)){
-                        if($kadaluarsa == "semua"){
-                            $resultUser = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM users WHERE id = $data->user_id"));
-                            $resultApar = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM apar WHERE id = $data->apar_id"));
-                            $data->user = $resultUser;
-                            $data->apar = $resultApar;
-                            $datas[$arr++] = $data;
-                        }
-                        else if($kadaluarsa == "belum"){
-                            $resultApar = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM apar WHERE id = $data->apar_id  AND `tanggal_kadaluarsa` > '".date("Y-m-d h:i:s")."'"));
-                            if($resultApar){
-                                $resultUser = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM users WHERE id = $data->user_id"));
-                                $data->user = $resultUser;
-                                $data->apar = $resultApar;
-                                $datas[$arr++] = $data;
-                            }
-                        }
-                        else if($kadaluarsa == "sudah"){
-                            $resultApar = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM apar WHERE id = $data->apar_id  AND `tanggal_kadaluarsa` < '".date("Y-m-d h:i:s")."'"));
-                            if($resultApar){
-                                $resultUser = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM users WHERE id = $data->user_id"));
-                                $data->user = $resultUser;
-                                $data->apar = $resultApar;
-                                $datas[$arr++] = $data;
-                            }
-                        }
+                    $resultUser = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM users WHERE id = $data->user_id"));
+                    $resultP3K = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM apar WHERE id = $data->apar_id"));
+                    $data->user = $resultUser;
+                    $data->p3k = $resultP3K;
+                    $datas[$arr++] = $data;
 
                 }
             }

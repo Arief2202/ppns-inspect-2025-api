@@ -173,7 +173,7 @@ CREATE TABLE `inspeksi_jalur_evakuasi` (
   `jalur_menuju_titik_kumpul` varchar(255) NOT NULL,
   `peralatan_darurat` varchar(255) NOT NULL,
   `peta_evakuasi` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
