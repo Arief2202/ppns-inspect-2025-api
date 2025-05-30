@@ -8,6 +8,7 @@
 
         $user_id = null;
         $kotak_id = null;
+        $kasa_steril_bungkus = null;
         $perban5 = null;
         $perban10 = null;
         $plester125 = null;
@@ -27,6 +28,7 @@
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
             $kotak_id = $_GET['kotak_id'];
+            $kasa_steril_bungkus = $_GET['kasa_steril_bungkus'];
             $perban5 = $_GET['perban5'];
             $perban10 = $_GET['perban10'];
             $plester125 = $_GET['plester125'];
@@ -46,6 +48,7 @@
         else if(isset($_POST['create'])){
             $user_id = $_POST['user_id'];
             $kotak_id = $_POST['kotak_id'];
+            $kasa_steril_bungkus = $_POST['kasa_steril_bungkus'];
             $perban5 = $_POST['perban5'];
             $perban10 = $_POST['perban10'];
             $plester125 = $_POST['plester125'];
@@ -66,6 +69,7 @@
         if( 
             $user_id != 'Ada' || 
             $kotak_id != 'Ada' || 
+            $kasa_steril_bungkus != 'Ada' || 
             $perban5 != 'Ada' || 
             $perban10 != 'Ada' || 
             $plester125 != 'Ada' || 
@@ -89,7 +93,7 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `created_at`) VALUES (NULL, '$user_id','$kotak_id','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik','$aquades', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `kasa_steril_bungkus`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `created_at`) VALUES (NULL, '$user_id','$kotak_id','$kasa_steril_bungkus','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik','$aquades', current_timestamp());";
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);
@@ -125,8 +129,8 @@
         if($start_date!=null && $end_date != null){
             $sqlll = "SELECT * FROM inspeksi_p3k WHERE created_at > '$start_date' AND created_at < '$end_date'";
 
-            if($kerusakan == "tidak") $sqlll .= " AND `perban5` = 'Ada' AND `perban10` = 'Ada' AND `plester125` = 'Ada' AND `plester_cepat` = 'Ada' AND `kapas` = 'Ada' AND `mitella` = 'Ada' AND `gunting` = 'Berfungsi' AND `peniti` = 'Ada' AND `sarung_tangan` = 'Ada' AND `masker` = 'Ada' AND `pinset` = 'Berfungsi' AND `lampu_senter` = 'Berfungsi' AND `gelas_cuci_mata` = 'Ada' AND `kantong_plastik` = 'Ada' AND `aquades` = 'Ada'";
-            if($kerusakan == "rusak") $sqlll .= " AND (`perban5` != 'Ada' OR `perban10` != 'Ada' OR `plester125` != 'Ada' OR `plester_cepat` != 'Ada' OR `kapas` != 'Ada' OR `mitella` != 'Ada' OR `gunting` != 'Berfungsi' OR `peniti` != 'Ada' OR `sarung_tangan` != 'Ada' OR `masker` != 'Ada' OR `pinset` != 'Berfungsi' OR `lampu_senter` != 'Berfungsi' OR `gelas_cuci_mata` != 'Ada' OR `kantong_plastik` != 'Ada' OR `aquades` != 'Ada')";
+            if($kerusakan == "tidak") $sqlll .= " AND `kasa_steril_bungkus` = 'Ada' AND `perban5` = 'Ada' AND `perban10` = 'Ada' AND `plester125` = 'Ada' AND `plester_cepat` = 'Ada' AND `kapas` = 'Ada' AND `mitella` = 'Ada' AND `gunting` = 'Berfungsi' AND `peniti` = 'Ada' AND `sarung_tangan` = 'Ada' AND `masker` = 'Ada' AND `pinset` = 'Berfungsi' AND `lampu_senter` = 'Berfungsi' AND `gelas_cuci_mata` = 'Ada' AND `kantong_plastik` = 'Ada' AND `aquades` = 'Ada'";
+            if($kerusakan == "rusak") $sqlll .= " AND (`kasa_steril_bungkus` != 'Ada' OR `perban5` != 'Ada' OR `perban10` != 'Ada' OR `plester125` != 'Ada' OR `plester_cepat` != 'Ada' OR `kapas` != 'Ada' OR `mitella` != 'Ada' OR `gunting` != 'Berfungsi' OR `peniti` != 'Ada' OR `sarung_tangan` != 'Ada' OR `masker` != 'Ada' OR `pinset` != 'Berfungsi' OR `lampu_senter` != 'Berfungsi' OR `gelas_cuci_mata` != 'Ada' OR `kantong_plastik` != 'Ada' OR `aquades` != 'Ada')";
 
 
             $result = mysqli_query($conn, $sqlll);

@@ -138,6 +138,7 @@ CREATE TABLE `inspeksi_p3k` (
   `id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
   `kotak_id` int(255) NOT NULL,
+  `kasa_steril_bungkus` varchar(255) NOT NULL,
   `perban5` varchar(255) NOT NULL,
   `perban10` varchar(255) NOT NULL,
   `plester125` varchar(255) NOT NULL,
