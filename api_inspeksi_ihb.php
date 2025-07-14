@@ -14,6 +14,7 @@
         $kondisi_coupling;
         $kondisi_landing_valve;
         $kondisi_tray;
+        $durasi_inspeksi;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -26,6 +27,7 @@
             $kondisi_coupling = $_GET['kondisi_coupling'];
             $kondisi_landing_valve = $_GET['kondisi_landing_valve'];
             $kondisi_tray = $_GET['kondisi_tray'];
+            $durasi_inspeksi = $_GET['durasi_inspeksi'];
         }
         else if(isset($_POST['create'])){
             $user_id = $_POST['user_id'];
@@ -38,6 +40,7 @@
             $kondisi_coupling = $_POST['kondisi_coupling'];
             $kondisi_landing_valve = $_POST['kondisi_landing_valve'];
             $kondisi_tray = $_POST['kondisi_tray'];
+            $durasi_inspeksi = $_POST['durasi_inspeksi'];
         }
         
         if( $kondisi_kotak != 'Bersih' || 
@@ -55,7 +58,7 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_hydrant_ihb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `kondisi_landing_valve`, `kondisi_tray`, `created_at`) VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$kondisi_landing_valve', '$kondisi_tray', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_hydrant_ihb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `kondisi_landing_valve`, `kondisi_tray`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$kondisi_landing_valve', '$kondisi_tray', '$durasi_inspeksi', current_timestamp());";
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

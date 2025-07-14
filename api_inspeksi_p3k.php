@@ -24,6 +24,7 @@
         $gelas_cuci_mata = null;
         $kantong_plastik = null;
         $aquades = null;
+        $durasi_inspeksi = null;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -44,6 +45,7 @@
             $gelas_cuci_mata = $_GET['gelas_cuci_mata'];
             $kantong_plastik = $_GET['kantong_plastik'];
             $aquades = $_GET['aquades'];
+            $durasi_inspeksi = $_GET['durasi_inspeksi'];
         }
         else if(isset($_POST['create'])){
             $user_id = $_POST['user_id'];
@@ -64,6 +66,7 @@
             $gelas_cuci_mata = $_POST['gelas_cuci_mata'];
             $kantong_plastik = $_POST['kantong_plastik'];
             $aquades = $_POST['aquades'];
+            $durasi_inspeksi = $_POST['durasi_inspeksi'];
         }
         
         if( 
@@ -93,7 +96,7 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `kasa_steril_bungkus`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `created_at`) VALUES (NULL, '$user_id','$kotak_id','$kasa_steril_bungkus','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik','$aquades', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `kasa_steril_bungkus`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id','$kotak_id','$kasa_steril_bungkus','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik','$aquades', '$durasi_inspeksi', current_timestamp());";
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

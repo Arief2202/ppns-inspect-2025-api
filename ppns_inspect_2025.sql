@@ -1,79 +1,67 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+/*M!999999\- enable the sandbox mode */ 
+-- MariaDB dump 10.19  Distrib 10.11.13-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1
--- Generation Time: May 22, 2024 at 07:19 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: ppns_2025_inspect
+-- ------------------------------------------------------
+-- Server version	10.11.13-MariaDB-0ubuntu0.24.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `ppns_inspect_2025`
---
-
--- --------------------------------------------------------
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `apar`
 --
 
+DROP TABLE IF EXISTS `apar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `apar` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `jenis_pemadam` varchar(255) NOT NULL,
   `nomor` varchar(255) NOT NULL,
   `lokasi` varchar(255) NOT NULL,
   `berat` varchar(255) NOT NULL,
   `rating` varchar(255) NOT NULL,
   `tanggal_kadaluarsa` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `hydrant`
 --
 
+DROP TABLE IF EXISTS `hydrant`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hydrant` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `nomor` varchar(255) NOT NULL,
   `lokasi` varchar(255) NOT NULL,
   `jenis_hydrant` varchar(5) NOT NULL DEFAULT 'ihb',
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `p3k`
---
-
-CREATE TABLE `p3k` (
-  `id` int(255) NOT NULL,
-  `nomor` varchar(255) NOT NULL,
-  `lokasi` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `inspeksi_apar`
 --
 
+DROP TABLE IF EXISTS `inspeksi_apar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inspeksi_apar` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `user_id` int(255) NOT NULL,
   `apar_id` int(255) NOT NULL,
   `tersedia` varchar(255) NOT NULL,
@@ -86,17 +74,22 @@ CREATE TABLE `inspeksi_apar` (
   `kondisi_selang` varchar(255) NOT NULL,
   `tekanan_tabung` varchar(255) NOT NULL,
   `posisi` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
+  `kondisi_roda` varchar(255) NOT NULL DEFAULT 'Not Applicable',
+  `durasi_inspeksi` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `inspeksi_hydrant_ihb`
 --
 
+DROP TABLE IF EXISTS `inspeksi_hydrant_ihb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inspeksi_hydrant_ihb` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `user_id` int(255) NOT NULL,
   `hydrant_id` int(255) NOT NULL,
   `kondisi_kotak` varchar(255) NOT NULL,
@@ -107,17 +100,21 @@ CREATE TABLE `inspeksi_hydrant_ihb` (
   `kondisi_coupling` varchar(255) NOT NULL,
   `kondisi_landing_valve` varchar(255) NOT NULL,
   `kondisi_tray` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `durasi_inspeksi` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `inspeksi_hydrant_ohb`
 --
 
+DROP TABLE IF EXISTS `inspeksi_hydrant_ohb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inspeksi_hydrant_ohb` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `user_id` int(255) NOT NULL,
   `hydrant_id` int(255) NOT NULL,
   `kondisi_kotak` varchar(255) NOT NULL,
@@ -131,11 +128,57 @@ CREATE TABLE `inspeksi_hydrant_ohb` (
   `penutup_cop` varchar(255) NOT NULL,
   `flushing_hydrant` varchar(255) NOT NULL,
   `tekanan_hydrant` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `durasi_inspeksi` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `inspeksi_jalur_evakuasi`
+--
+
+DROP TABLE IF EXISTS `inspeksi_jalur_evakuasi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `inspeksi_jalur_evakuasi` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `user_id` int(255) NOT NULL,
+  `lokasi` varchar(255) NOT NULL,
+  `kebersihan` varchar(255) NOT NULL,
+  `penanda_exit` varchar(255) NOT NULL,
+  `kebebasan_hambatan` varchar(255) NOT NULL,
+  `penerangan_jalur` varchar(255) NOT NULL,
+  `tanda_arah` varchar(255) NOT NULL,
+  `material_lantai` varchar(255) NOT NULL,
+  `tanda_pintu_darurat` varchar(255) NOT NULL,
+  `pegangan_rambat` varchar(255) NOT NULL,
+  `pencahayaan_darurat` varchar(255) NOT NULL,
+  `identifikasi_titik_kumpul` varchar(255) NOT NULL,
+  `jalur_menuju_titik_kumpul` varchar(255) NOT NULL,
+  `peralatan_darurat` varchar(255) NOT NULL,
+  `peta_evakuasi` varchar(255) NOT NULL,
+  `pintu_dikunci` varchar(255) NOT NULL,
+  `pintu_berfungsi` varchar(255) NOT NULL,
+  `terdapat_ganjal` varchar(255) NOT NULL,
+  `terbebas_halangan` varchar(255) NOT NULL,
+  `terbebas_hambatan` varchar(255) NOT NULL,
+  `pintu_pelepasan_terkunci` varchar(255) NOT NULL,
+  `durasi_inspeksi` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `inspeksi_p3k`
+--
+
+DROP TABLE IF EXISTS `inspeksi_p3k`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inspeksi_p3k` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `user_id` int(255) NOT NULL,
   `kotak_id` int(255) NOT NULL,
   `kasa_steril_bungkus` varchar(255) NOT NULL,
@@ -154,192 +197,71 @@ CREATE TABLE `inspeksi_p3k` (
   `gelas_cuci_mata` varchar(255) NOT NULL,
   `kantong_plastik` varchar(255) NOT NULL,
   `aquades` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `durasi_inspeksi` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
-CREATE TABLE `inspeksi_jalur_evakuasi` (
-  `id` int(255) NOT NULL,
-  `user_id` int(255) NOT NULL,
-  `lokasi` varchar(255) NOT NULL,
-  `kebersihan` varchar(255) NOT NULL,
-  `penanda_exit` varchar(255) NOT NULL,
-  `kebebasan_hambatan` varchar(255) NOT NULL,
-  `penerangan_jalur` varchar(255) NOT NULL,
-  `tanda_arah` varchar(255) NOT NULL,
-  `material_lantai` varchar(255) NOT NULL,
-  `tanda_pintu_darurat` varchar(255) NOT NULL,
-  `pegangan_rambat` varchar(255) NOT NULL,
-  `pencahayaan_darurat` varchar(255) NOT NULL,
-  `identifikasi_titik_kumpul` varchar(255) NOT NULL,
-  `jalur_menuju_titik_kumpul` varchar(255) NOT NULL,
-  `peralatan_darurat` varchar(255) NOT NULL,
-  `peta_evakuasi` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `notification`
 --
 
+DROP TABLE IF EXISTS `notification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `user_id` int(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` varchar(255) NOT NULL,
   `displayed` tinyint(1) NOT NULL DEFAULT 0,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Table structure for table `p3k`
+--
+
+DROP TABLE IF EXISTS `p3k`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `p3k` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `nomor` varchar(255) NOT NULL,
+  `lokasi` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `role` int(255) NOT NULL DEFAULT 0,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `apar`
---
-ALTER TABLE `apar`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `hydrant`
---
-ALTER TABLE `hydrant`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `p3k`
---
-ALTER TABLE `p3k`
-  ADD PRIMARY KEY (`id`);
---
--- Indexes for table `inspeksi_apar`
---
-ALTER TABLE `inspeksi_apar`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `inspeksi_hydrant_ihb`
---
-ALTER TABLE `inspeksi_hydrant_ihb`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `inspeksi_hydrant_ohb`
---
-ALTER TABLE `inspeksi_hydrant_ohb`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `inspeksi_p3k`
---
-ALTER TABLE `inspeksi_p3k`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `notification`
---
-ALTER TABLE `notification`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
-  
---
--- Indexes for table `inspeksi_jalur_evakuasi`
---
-ALTER TABLE `inspeksi_jalur_evakuasi`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `apar`
---
-ALTER TABLE `apar`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `hydrant`
---
-ALTER TABLE `hydrant`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `p3k`
---
-ALTER TABLE `p3k`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `inspeksi_apar`
---
-ALTER TABLE `inspeksi_apar`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `inspeksi_hydrant_ihb`
---
-ALTER TABLE `inspeksi_hydrant_ihb`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `inspeksi_hydrant_ohb`
---
-ALTER TABLE `inspeksi_hydrant_ohb`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `inspeksi_p3k`
---
-ALTER TABLE `inspeksi_p3k`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `notification`
---
-ALTER TABLE `notification`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
---
--- AUTO_INCREMENT for table `inspeksi_jalur_evakuasi`
---
-ALTER TABLE `inspeksi_jalur_evakuasi`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
-INSERT INTO `users` (`id`, `role`, `name`, `email`, `password`, `created_at`) VALUES (NULL, '1', 'admin', 'admin', '$2y$10$3iXDxjq7nBpBnWG5ta8r4eggd2CpwP3qYBNVP76CrgQXMaPKnAOjG', current_timestamp());
-INSERT INTO `users` (`id`, `role`, `name`, `email`, `password`, `created_at`) VALUES (NULL, '0', 'inspektor', 'inspektor', '$2y$10$TZOtCNTC28yxWNccSr5qB.lbiVklElOl29ue3Xnofmd/xA6Xm53iC', current_timestamp());
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-07-15  3:51:53

@@ -17,6 +17,7 @@
         $penutup_cop;
         $flushing_hydrant;
         $tekanan_hydrant;
+        $durasi_inspeksi;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -32,6 +33,7 @@
             $penutup_cop = $_GET['penutup_cop'];
             $flushing_hydrant = $_GET['flushing_hydrant'];
             $tekanan_hydrant = $_GET['tekanan_hydrant'];
+            $durasi_inspeksi = $_GET['durasi_inspeksi'];
         }
         else if(isset($_POST['create'])){
             $user_id = $_POST['user_id'];
@@ -47,6 +49,7 @@
             $penutup_cop = $_POST['penutup_cop'];
             $flushing_hydrant = $_POST['flushing_hydrant'];
             $tekanan_hydrant = $_POST['tekanan_hydrant'];
+            $durasi_inspeksi = $_POST['durasi_inspeksi'];
         }
 
         if( $kondisi_kotak != 'Bersih' || 
@@ -65,7 +68,7 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_hydrant_ohb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `tuas_pembuka`, `kondisi_outlet`, `penutup_cop`, `flushing_hydrant`, `tekanan_hydrant`,  `created_at`) VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$tuas_pembuka', '$kondisi_outlet', '$penutup_cop', '$flushing_hydrant', '$tekanan_hydrant', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_hydrant_ohb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `tuas_pembuka`, `kondisi_outlet`, `penutup_cop`, `flushing_hydrant`, `tekanan_hydrant`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$tuas_pembuka', '$kondisi_outlet', '$penutup_cop', '$flushing_hydrant', '$tekanan_hydrant', '$durasi_inspeksi', current_timestamp());";
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

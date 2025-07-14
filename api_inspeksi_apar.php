@@ -17,6 +17,8 @@
         $kondisi_selang = null;
         $tekanan_tabung = null;
         $posisi = null;
+        $kondisi_roda = null;
+        $durasi_inspeksi = null;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -31,6 +33,8 @@
             $kondisi_selang = $_GET['kondisi_selang'];
             $tekanan_tabung = $_GET['tekanan_tabung'];
             $posisi = $_GET['posisi'];
+            $kondisi_roda = $_GET['kondisi_roda'];
+            $durasi_inspeksi = $_GET['durasi_inspeksi'];
         }
         else if(isset($_POST['create'])){
             $user_id = $_POST['user_id'];
@@ -45,6 +49,8 @@
             $kondisi_selang = $_POST['kondisi_selang'];
             $tekanan_tabung = $_POST['tekanan_tabung'];
             $posisi = $_POST['posisi'];
+            $kondisi_roda = $_POST['kondisi_roda'];
+            $durasi_inspeksi = $_POST['durasi_inspeksi'];
         }
         
         if( $tersedia != 'Tersedia' || 
@@ -55,7 +61,8 @@
             $label_instruksi != 'Terbaca' || 
             $kondisi_selang != 'Baik' || 
             $tekanan_tabung != 'Tepat di hijau' || 
-            $posisi != 'Terlihat'
+            $posisi != 'Terlihat' ||
+            $kondisi_roda == 'Rusak'
         ){
             $users = mysqli_query($conn, "SELECT * FROM users where role = 1");
             while($userAdmin = mysqli_fetch_object($users)){
@@ -64,7 +71,7 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_apar` (`id`, `user_id`, `apar_id`, `tersedia`, `alasan`, `kondisi_tabung`, `segel_pin`, `tuas_pegangan`, `label_segitiga`, `label_instruksi`, `kondisi_selang`, `tekanan_tabung`, `posisi`, `created_at`) VALUES (NULL, '$user_id', '$apar_id', '$tersedia', '$alasan', '$kondisi_tabung', '$segel_pin', '$tuas_pegangan', '$label_segitiga', '$label_instruksi', '$kondisi_selang', '$tekanan_tabung', '$posisi', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_apar` (`id`, `user_id`, `apar_id`, `tersedia`, `alasan`, `kondisi_tabung`, `segel_pin`, `tuas_pegangan`, `label_segitiga`, `label_instruksi`, `kondisi_selang`, `tekanan_tabung`, `posisi`, `kondisi_roda`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id', '$apar_id', '$tersedia', '$alasan', '$kondisi_tabung', '$segel_pin', '$tuas_pegangan', '$label_segitiga', '$label_instruksi', '$kondisi_selang', '$tekanan_tabung', '$posisi', '$kondisi_roda', '$durasi_inspeksi', current_timestamp());";
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

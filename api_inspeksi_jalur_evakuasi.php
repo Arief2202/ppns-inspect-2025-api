@@ -5,6 +5,7 @@
 
     if(isset($_GET['create']) || isset($_POST['create'])){
         $user_id;
+        $lokasi;
         $kebersihan;
         $penanda_exit;
         $kebebasan_hambatan;
@@ -18,9 +19,17 @@
         $jalur_menuju_titik_kumpul;
         $peralatan_darurat;
         $peta_evakuasi;
+        $pintu_dikunci;
+        $pintu_berfungsi;
+        $terdapat_ganjal;
+        $terbebas_halangan;
+        $terbebas_hambatan;
+        $pintu_pelepasan_terkunci;
+        $durasi_inspeksi;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
+            $lokasi = $_GET['lokasi'];
             $kebersihan = $_GET['kebersihan'];
             $penanda_exit = $_GET['penanda_exit'];
             $kebebasan_hambatan = $_GET['kebebasan_hambatan'];
@@ -34,9 +43,17 @@
             $jalur_menuju_titik_kumpul = $_GET['jalur_menuju_titik_kumpul'];
             $peralatan_darurat = $_GET['peralatan_darurat'];
             $peta_evakuasi = $_GET['peta_evakuasi'];
+            $pintu_dikunci = $_GET['pintu_dikunci'];
+            $pintu_berfungsi = $_GET['pintu_berfungsi'];
+            $terdapat_ganjal = $_GET['terdapat_ganjal'];
+            $terbebas_halangan = $_GET['terbebas_halangan'];
+            $terbebas_hambatan = $_GET['terbebas_hambatan'];
+            $pintu_pelepasan_terkunci = $_GET['pintu_pelepasan_terkunci'];
+            $durasi_inspeksi = $_GET['durasi_inspeksi'];
         }
         if(isset($_POST['create'])){
             $user_id = $_POST['user_id'];
+            $lokasi = $_POST['lokasi'];
             $kebersihan = $_POST['kebersihan'];
             $penanda_exit = $_POST['penanda_exit'];
             $kebebasan_hambatan = $_POST['kebebasan_hambatan'];
@@ -50,6 +67,13 @@
             $jalur_menuju_titik_kumpul = $_POST['jalur_menuju_titik_kumpul'];
             $peralatan_darurat = $_POST['peralatan_darurat'];
             $peta_evakuasi = $_POST['peta_evakuasi'];
+            $pintu_dikunci = $_POST['pintu_dikunci'];
+            $pintu_berfungsi = $_POST['pintu_berfungsi'];
+            $terdapat_ganjal = $_POST['terdapat_ganjal'];
+            $terbebas_halangan = $_POST['terbebas_halangan'];
+            $terbebas_hambatan = $_POST['terbebas_hambatan'];
+            $pintu_pelepasan_terkunci = $_POST['pintu_pelepasan_terkunci'];
+            $durasi_inspeksi = $_POST['durasi_inspeksi'];
         }
         
         if( $kebersihan != 'Ya' || 
@@ -64,7 +88,13 @@
             $identifikasi_titik_kumpul != 'Ya' || 
             $jalur_menuju_titik_kumpul != 'Ya' || 
             $peralatan_darurat != 'Ya' || 
-            $peta_evakuasi != 'Ya'
+            $peta_evakuasi != 'Ya' ||
+            $pintu_dikunci != 'Ya' ||
+            $pintu_berfungsi != 'Ya' ||
+            $terdapat_ganjal != 'Ya' ||
+            $terbebas_halangan != 'Ya' ||
+            $terbebas_hambatan != 'Ya' ||
+            $pintu_pelepasan_terkunci != 'Ya'
         ){
             $users = mysqli_query($conn, "SELECT * FROM users where role = 1");
             while($userAdmin = mysqli_fetch_object($users)){
@@ -72,8 +102,7 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_jalur_evakuasi` (`id`, `user_id`, `kebersihan`,`penanda_exit`,`kebebasan_hambatan`,`penerangan_jalur`,`tanda_arah`,`material_lantai`,`tanda_pintu_darurat`,`pegangan_rambat`,`pencahayaan_darurat`,`identifikasi_titik_kumpul`,`jalur_menuju_titik_kumpul`,`peralatan_darurat`,`peta_evakuasi`,`created_at`) VALUES (NULL, $user_id, '$kebersihan','$penanda_exit','$kebebasan_hambatan','$penerangan_jalur','$tanda_arah','$material_lantai','$tanda_pintu_darurat','$pegangan_rambat','$pencahayaan_darurat','$identifikasi_titik_kumpul','$jalur_menuju_titik_kumpul','$peralatan_darurat','$peta_evakuasi',
-        current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_jalur_evakuasi` (`id`, `user_id`, `lokasi`, `kebersihan`,`penanda_exit`,`kebebasan_hambatan`,`penerangan_jalur`,`tanda_arah`,`material_lantai`,`tanda_pintu_darurat`,`pegangan_rambat`,`pencahayaan_darurat`,`identifikasi_titik_kumpul`,`jalur_menuju_titik_kumpul`,`peralatan_darurat`,`peta_evakuasi`, `pintu_dikunci`, `pintu_berfungsi`, `terdapat_ganjal`, `terbebas_halangan`, `terbebas_hambatan`, `pintu_pelepasan_terkunci`, `durasi_inspeksi`, `created_at`) VALUES (NULL, $user_id, '$lokasi', '$kebersihan','$penanda_exit','$kebebasan_hambatan','$penerangan_jalur','$tanda_arah','$material_lantai','$tanda_pintu_darurat','$pegangan_rambat','$pencahayaan_darurat','$identifikasi_titik_kumpul','$jalur_menuju_titik_kumpul','$peralatan_darurat','$peta_evakuasi', '$pintu_dikunci', '$pintu_berfungsi', '$terdapat_ganjal', '$terbebas_halangan', '$terbebas_hambatan', '$pintu_pelepasan_terkunci', '$durasi_inspeksi', current_timestamp());";
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);
@@ -106,8 +135,8 @@
         if($start_date!=null & $end_date != null){            
             $sqlll = "SELECT * FROM inspeksi_jalur_evakuasi WHERE created_at > '$start_date' AND created_at < '$end_date'";
             
-            if($kerusakan == "tidak") $sqlll .= " AND `kebersihan` = 'Ya' AND `penanda_exit` = 'Ya' AND `kebebasan_hambatan` = 'Ya' AND `penerangan_jalur` = 'Ya' AND `tanda_arah` = 'Ya' AND `material_lantai` = 'Ya' AND `tanda_pintu_darurat` = 'Ya' AND `pegangan_rambat` = 'Ya' AND `pencahayaan_darurat` = 'Ya' AND `identifikasi_titik_kumpul` = 'Ya' AND `jalur_menuju_titik_kumpul` = 'Ya' AND `peralatan_darurat` = 'Ya' AND `peta_evakuasi` = 'Ya'";
-            if($kerusakan == "rusak") $sqlll .= " AND (`kebersihan` != 'Ya' OR `penanda_exit` != 'Ya' OR `kebebasan_hambatan` != 'Ya' OR `penerangan_jalur` != 'Ya' OR `tanda_arah` != 'Ya' OR `material_lantai` != 'Ya' OR `tanda_pintu_darurat` != 'Ya' OR `pegangan_rambat` != 'Ya' OR `pencahayaan_darurat` != 'Ya' OR `identifikasi_titik_kumpul` != 'Ya' OR `jalur_menuju_titik_kumpul` != 'Ya' OR `peralatan_darurat` != 'Ya' OR `peta_evakuasi` != 'Ya')";
+            if($kerusakan == "tidak") $sqlll .= " AND `kebersihan` = 'Ya' AND `penanda_exit` = 'Ya' AND `kebebasan_hambatan` = 'Ya' AND `penerangan_jalur` = 'Ya' AND `tanda_arah` = 'Ya' AND `material_lantai` = 'Ya' AND `tanda_pintu_darurat` = 'Ya' AND `pegangan_rambat` = 'Ya' AND `pencahayaan_darurat` = 'Ya' AND `identifikasi_titik_kumpul` = 'Ya' AND `jalur_menuju_titik_kumpul` = 'Ya' AND `peralatan_darurat` = 'Ya' AND `peta_evakuasi` = 'Ya' AND `pintu_dikunci` = 'Ya' AND `pintu_berfungsi` = 'Ya' AND `terdapat_ganjal` = 'Ya' AND `terbebas_halangan` = 'Ya' AND `terbebas_hambatan` = 'Ya' AND `pintu_pelepasan_terkunci` = 'Ya'";
+            if($kerusakan == "rusak") $sqlll .= " AND (`kebersihan` != 'Ya' OR `penanda_exit` != 'Ya' OR `kebebasan_hambatan` != 'Ya' OR `penerangan_jalur` != 'Ya' OR `tanda_arah` != 'Ya' OR `material_lantai` != 'Ya' OR `tanda_pintu_darurat` != 'Ya' OR `pegangan_rambat` != 'Ya' OR `pencahayaan_darurat` != 'Ya' OR `identifikasi_titik_kumpul` != 'Ya' OR `jalur_menuju_titik_kumpul` != 'Ya' OR `peralatan_darurat` != 'Ya' OR `peta_evakuasi` != 'Ya' OR `pintu_dikunci` != 'Ya' OR `pintu_berfungsi` != 'Ya' OR `terdapat_ganjal` != 'Ya' OR `terbebas_halangan` != 'Ya' OR `terbebas_hambatan` != 'Ya' OR `pintu_pelepasan_terkunci` != 'Ya')";
 
             $result = mysqli_query($conn,$sqlll);
         }
