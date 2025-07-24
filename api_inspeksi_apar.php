@@ -132,7 +132,8 @@
                 }
             }
             else{
-                while($data = mysqli_fetch_object($result)){
+                while($data = mysqli_fetch_object($result)){        
+
                         if($kadaluarsa == "semua"){
                             $resultUser = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM users WHERE id = $data->user_id"));
                             $resultApar = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM apar WHERE id = $data->apar_id"));
@@ -158,6 +159,7 @@
                                 $datas[$arr++] = $data;
                             }
                         }
+                        // var_dump($datas);die;
 
                 }
             }

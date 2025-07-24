@@ -33,7 +33,7 @@ CREATE TABLE `apar` (
   `tanggal_kadaluarsa` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `hydrant` (
   `jenis_hydrant` varchar(5) NOT NULL DEFAULT 'ihb',
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +78,7 @@ CREATE TABLE `inspeksi_apar` (
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `inspeksi_hydrant_ihb` (
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `inspeksi_hydrant_ohb` (
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,29 +145,19 @@ CREATE TABLE `inspeksi_jalur_evakuasi` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `user_id` int(255) NOT NULL,
   `lokasi` varchar(255) NOT NULL,
-  `kebersihan` varchar(255) NOT NULL,
-  `penanda_exit` varchar(255) NOT NULL,
-  `kebebasan_hambatan` varchar(255) NOT NULL,
-  `penerangan_jalur` varchar(255) NOT NULL,
-  `tanda_arah` varchar(255) NOT NULL,
-  `material_lantai` varchar(255) NOT NULL,
-  `tanda_pintu_darurat` varchar(255) NOT NULL,
-  `pegangan_rambat` varchar(255) NOT NULL,
-  `pencahayaan_darurat` varchar(255) NOT NULL,
-  `identifikasi_titik_kumpul` varchar(255) NOT NULL,
-  `jalur_menuju_titik_kumpul` varchar(255) NOT NULL,
-  `peralatan_darurat` varchar(255) NOT NULL,
-  `peta_evakuasi` varchar(255) NOT NULL,
-  `pintu_dikunci` varchar(255) NOT NULL,
+  `pintu_terkunci` varchar(255) NOT NULL,
   `pintu_berfungsi` varchar(255) NOT NULL,
-  `terdapat_ganjal` varchar(255) NOT NULL,
-  `terbebas_halangan` varchar(255) NOT NULL,
-  `terbebas_hambatan` varchar(255) NOT NULL,
-  `pintu_pelepasan_terkunci` varchar(255) NOT NULL,
-  `durasi_inspeksi` varchar(255) DEFAULT NULL,
+  `ganjal` varchar(255) NOT NULL,
+  `ganjal_tangga` varchar(255) NOT NULL,
+  `kebersihan_tangga` varchar(255) NOT NULL,
+  `hambatan_eksit` varchar(255) NOT NULL,
+  `eksit_terkunci` varchar(255) NOT NULL,
+  `visibilitas_eksit` varchar(255) NOT NULL,
+  `pencahayaan_eksit` varchar(255) NOT NULL,
+  `durasi_inspeksi` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,10 +187,14 @@ CREATE TABLE `inspeksi_p3k` (
   `gelas_cuci_mata` varchar(255) NOT NULL,
   `kantong_plastik` varchar(255) NOT NULL,
   `aquades` varchar(255) NOT NULL,
+  `oxygen` varchar(255) NOT NULL,
+  `obat_luka_bakar` varchar(255) NOT NULL,
+  `buku_catatan` varchar(255) NOT NULL,
+  `daftar_isi` varchar(255) NOT NULL,
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +212,7 @@ CREATE TABLE `notification` (
   `displayed` tinyint(1) NOT NULL DEFAULT 0,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1579 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +228,7 @@ CREATE TABLE `p3k` (
   `lokasi` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,7 +246,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -264,4 +258,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-15  3:51:53
+-- Dump completed on 2025-07-24 23:14:41

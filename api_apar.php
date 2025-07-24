@@ -197,6 +197,7 @@
         }
         $result = mysqli_query($conn, "DELETE FROM `apar` WHERE `apar`.`id` = ".$id);
         if($result){
+            mysqli_query($conn, "DELETE FROM `inspeksi_apar` WHERE `inspeksi_apar`.`apar_id` = ".$id);
             http_response_code(200);
             echo json_encode([
                 "status" => "success",

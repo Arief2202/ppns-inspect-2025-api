@@ -24,6 +24,10 @@
         $gelas_cuci_mata = null;
         $kantong_plastik = null;
         $aquades = null;
+        $oxygen = null;
+        $obat_luka_bakar = null;
+        $buku_catatan = null;
+        $daftar_isi = null;
         $durasi_inspeksi = null;
 
         if(isset($_GET['create'])){
@@ -45,6 +49,10 @@
             $gelas_cuci_mata = $_GET['gelas_cuci_mata'];
             $kantong_plastik = $_GET['kantong_plastik'];
             $aquades = $_GET['aquades'];
+            $oxygen = $_GET['oxygen'];
+            $obat_luka_bakar = $_GET['obat_luka_bakar'];
+            $buku_catatan = $_GET['buku_catatan'];
+            $daftar_isi = $_GET['daftar_isi'];
             $durasi_inspeksi = $_GET['durasi_inspeksi'];
         }
         else if(isset($_POST['create'])){
@@ -66,6 +74,10 @@
             $gelas_cuci_mata = $_POST['gelas_cuci_mata'];
             $kantong_plastik = $_POST['kantong_plastik'];
             $aquades = $_POST['aquades'];
+            $oxygen = $_POST['oxygen'];
+            $obat_luka_bakar = $_POST['obat_luka_bakar'];
+            $buku_catatan = $_POST['buku_catatan'];
+            $daftar_isi = $_POST['daftar_isi'];
             $durasi_inspeksi = $_POST['durasi_inspeksi'];
         }
         
@@ -87,7 +99,11 @@
             $lampu_senter != 'Berfungsi' || 
             $gelas_cuci_mata != 'Ada' || 
             $kantong_plastik != 'Ada' || 
-            $aquades != 'Ada'
+            $aquades != 'Ada' ||
+            $oxygen != 'Ada' || 
+            $obat_luka_bakar != 'Ada' || 
+            $buku_catatan != 'Ada' || 
+            $daftar_isi != 'Ada'  
         ){
             $users = mysqli_query($conn, "SELECT * FROM users where role = 1");
             while($userAdmin = mysqli_fetch_object($users)){
@@ -96,14 +112,12 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `kasa_steril_bungkus`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id','$kotak_id','$kasa_steril_bungkus','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik','$aquades', '$durasi_inspeksi', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `kasa_steril_bungkus`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `oxygen`, `obat_luka_bakar`, `buku_catatan`, `daftar_isi`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id','$kotak_id','$kasa_steril_bungkus','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik', '$aquades', '$oxygen', '$obat_luka_bakar', '$buku_catatan', '$daftar_isi', '$durasi_inspeksi', current_timestamp());";
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);
-            // $data = mysqli_fetch_object(mysqli_query($conn, "SELECT * FROM inspeksi_apar WHERE nomor = '".$nomor."'"));
             echo json_encode([
                 "status" => "success",
-                // "data" => $data,
                 "pesan" => "Data Inspeksi P3K Berhasil Ditambahkan",
             ]);
         }
@@ -132,8 +146,8 @@
         if($start_date!=null && $end_date != null){
             $sqlll = "SELECT * FROM inspeksi_p3k WHERE created_at > '$start_date' AND created_at < '$end_date'";
 
-            if($kerusakan == "tidak") $sqlll .= " AND `kasa_steril_bungkus` = 'Ada' AND `perban5` = 'Ada' AND `perban10` = 'Ada' AND `plester125` = 'Ada' AND `plester_cepat` = 'Ada' AND `kapas` = 'Ada' AND `mitella` = 'Ada' AND `gunting` = 'Berfungsi' AND `peniti` = 'Ada' AND `sarung_tangan` = 'Ada' AND `masker` = 'Ada' AND `pinset` = 'Berfungsi' AND `lampu_senter` = 'Berfungsi' AND `gelas_cuci_mata` = 'Ada' AND `kantong_plastik` = 'Ada' AND `aquades` = 'Ada'";
-            if($kerusakan == "rusak") $sqlll .= " AND (`kasa_steril_bungkus` != 'Ada' OR `perban5` != 'Ada' OR `perban10` != 'Ada' OR `plester125` != 'Ada' OR `plester_cepat` != 'Ada' OR `kapas` != 'Ada' OR `mitella` != 'Ada' OR `gunting` != 'Berfungsi' OR `peniti` != 'Ada' OR `sarung_tangan` != 'Ada' OR `masker` != 'Ada' OR `pinset` != 'Berfungsi' OR `lampu_senter` != 'Berfungsi' OR `gelas_cuci_mata` != 'Ada' OR `kantong_plastik` != 'Ada' OR `aquades` != 'Ada')";
+            if($kerusakan == "tidak") $sqlll .= " AND `kasa_steril_bungkus` = 'Ada' AND `perban5` = 'Ada' AND `perban10` = 'Ada' AND `plester125` = 'Ada' AND `plester_cepat` = 'Ada' AND `kapas` = 'Ada' AND `mitella` = 'Ada' AND `gunting` = 'Berfungsi' AND `peniti` = 'Ada' AND `sarung_tangan` = 'Ada' AND `masker` = 'Ada' AND `pinset` = 'Berfungsi' AND `lampu_senter` = 'Berfungsi' AND `gelas_cuci_mata` = 'Ada' AND `kantong_plastik` = 'Ada'  AND `aquades` = 'Ada' AND `oxygen` = 'Ada' AND `obat_luka_bakar` = 'Ada' AND `buku_catatan` = 'Ada' AND `daftar_isi` = 'Ada' ";
+            if($kerusakan == "rusak") $sqlll .= " AND (`kasa_steril_bungkus` != 'Ada' OR `perban5` != 'Ada' OR `perban10` != 'Ada' OR `plester125` != 'Ada' OR `plester_cepat` != 'Ada' OR `kapas` != 'Ada' OR `mitella` != 'Ada' OR `gunting` != 'Berfungsi' OR `peniti` != 'Ada' OR `sarung_tangan` != 'Ada' OR `masker` != 'Ada' OR `pinset` != 'Berfungsi' OR `lampu_senter` != 'Berfungsi' OR `gelas_cuci_mata` != 'Ada' OR `kantong_plastik` != 'Ada'  OR `aquades` != 'Ada' OR `oxygen` != 'Ada' OR `obat_luka_bakar` != 'Ada' OR `buku_catatan` != 'Ada' OR `daftar_isi` != 'Ada')";
 
 
             $result = mysqli_query($conn, $sqlll);

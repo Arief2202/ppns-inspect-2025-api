@@ -84,6 +84,7 @@
             }
         }
     }
+
     if(isset($_GET['check_reminder_inspeksi']) || isset($_POST['check_reminder_inspeksi'])){
         http_response_code(200);
         if(isset($_GET['user_id']) || isset($_POST['user_id'])){
@@ -91,8 +92,8 @@
             if(isset($_GET['user_id'])) $user_id = $_GET['user_id'];
             if(isset($_POST['user_id'])) $user_id = $_POST['user_id'];
             if($user_id){
-                if(((int) date('d')) < 10 || ((int) date('d')) > 25 ){            
-                    mysqli_query($conn, "INSERT INTO `notification` (`id`, `user_id`, `title`, `content`, `displayed`, `timestamp`) VALUES (NULL, '$user_id', 'Reminder Inspeksi', 'Harap Lakukan inspeksi APAR & HYDRANT sebelum tanggal 10', '0', current_timestamp());");
+                if(((int) date('d')) < 10 || ((int) date('d')) > 20 ){            
+                    mysqli_query($conn, "INSERT INTO `notification` (`id`, `user_id`, `title`, `content`, `displayed`, `timestamp`) VALUES (NULL, '$user_id', 'Reminder Inspeksi', 'Harap Lakukan Inspeksi Sarana Tanggap Darurat!', '0', current_timestamp());");
                 }
             }
         }
