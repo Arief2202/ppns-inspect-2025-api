@@ -78,7 +78,7 @@ CREATE TABLE `inspeksi_apar` (
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `inspeksi_hydrant_ohb` (
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,6 +198,51 @@ CREATE TABLE `inspeksi_p3k` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `inspeksi_rumah_pompa`
+--
+
+DROP TABLE IF EXISTS `inspeksi_rumah_pompa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `inspeksi_rumah_pompa` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `user_id` int(255) NOT NULL,
+  `lokasi` varchar(255) NOT NULL,
+  `kondisi` varchar(255) NOT NULL,
+  `ventilasi` varchar(255) NOT NULL,
+  `katup_hisap` varchar(255) NOT NULL,
+  `perpipaan` varchar(255) NOT NULL,
+  `pengukur_hisap` varchar(255) NOT NULL,
+  `pengukur_sistem` varchar(255) NOT NULL,
+  `tangki_hisap` varchar(255) NOT NULL,
+  `saringan_hisap` varchar(255) NOT NULL,
+  `katup_uji` varchar(255) NOT NULL,
+  `lampu_pengontrol` varchar(255) NOT NULL,
+  `lampu_saklar` varchar(255) NOT NULL,
+  `saklar_isolasi` varchar(255) NOT NULL,
+  `lampu_rotasi` varchar(255) NOT NULL,
+  `level_oli_motor` varchar(255) NOT NULL,
+  `pompa_pemeliharaan` varchar(255) NOT NULL,
+  `tangki_bahan_bakar` varchar(255) NOT NULL,
+  `saklar_pemilih` varchar(255) NOT NULL,
+  `pembacaan_tegangan` varchar(255) NOT NULL,
+  `pembacaan_arus` varchar(255) NOT NULL,
+  `lampu_baterai` varchar(255) NOT NULL,
+  `semua_lampu_alarm` varchar(255) NOT NULL,
+  `pengukur_waktu` varchar(255) NOT NULL,
+  `ketinggian_oli` varchar(255) NOT NULL,
+  `level_oli_mesin` varchar(255) NOT NULL,
+  `ketinggian_air` varchar(255) NOT NULL,
+  `tingkat_elektrolit` varchar(255) NOT NULL,
+  `terminal_baterai` varchar(255) NOT NULL,
+  `pemanas_jaket` varchar(255) NOT NULL,
+  `kondisi_uap` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `notification`
 --
 
@@ -212,7 +257,7 @@ CREATE TABLE `notification` (
   `displayed` tinyint(1) NOT NULL DEFAULT 0,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1579 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2034 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,4 +303,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-24 23:14:41
+-- Dump completed on 2025-07-31  0:45:49
