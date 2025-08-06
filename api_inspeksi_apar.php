@@ -4,6 +4,18 @@
     header('Content-Type: application/json; charset=utf-8');
     http_response_code(406);
 
+    function checkUploadedFile($postName){
+        $target_dir = "uploads/";
+        if(isset($_FILES[$postName])){
+            $target_file = $target_dir . basename($_FILES[$postName]["name"]);
+            if (move_uploaded_file($_FILES[$postName]["tmp_name"], $target_file)) {
+               return '/uploads/'.$_FILES[$postName]["name"];
+            } else {
+                return null;
+            }
+        }
+    }
+
     if(isset($_GET['create']) || isset($_POST['create'])){
         $user_id = null;
         $apar_id = null;
@@ -19,6 +31,18 @@
         $posisi = null;
         $kondisi_roda = null;
         $durasi_inspeksi = null;
+        
+        $tersedia_img = null;
+        $alasan_img = null;
+        $kondisi_tabung_img = null;
+        $segel_pin_img = null;
+        $tuas_pegangan_img = null;
+        $label_segitiga_img = null;
+        $label_instruksi_img = null;
+        $kondisi_selang_img = null;
+        $tekanan_tabung_img = null;
+        $posisi_img = null;
+        $kondisi_roda_img = null;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -70,8 +94,49 @@
                 mysqli_query($conn, "INSERT INTO `notification` (`id`, `user_id`, `title`, `content`, `displayed`, `timestamp`) VALUES (NULL, '$userAdmin->id', 'APAR Rusak Terinspeksi', 'Telah terdeteksi APAR rusak dengan Nomor : $apar->nomor', '0', current_timestamp());");
             }
         }
+        
+        $tersedia_img = checkUploadedFile('tersedia_img');
+        $alasan_img = checkUploadedFile('alasan_img');
+        $kondisi_tabung_img = checkUploadedFile('kondisi_tabung_img');
+        $segel_pin_img = checkUploadedFile('segel_pin_img');
+        $tuas_pegangan_img = checkUploadedFile('tuas_pegangan_img');
+        $label_segitiga_img = checkUploadedFile('label_segitiga_img');
+        $label_instruksi_img = checkUploadedFile('label_instruksi_img');
+        $kondisi_selang_img = checkUploadedFile('kondisi_selang_img');
+        $tekanan_tabung_img = checkUploadedFile('tekanan_tabung_img');
+        $posisi_img = checkUploadedFile('posisi_img');
+        $kondisi_roda_img = checkUploadedFile('kondisi_roda_img');
 
-        $sql = "INSERT INTO `inspeksi_apar` (`id`, `user_id`, `apar_id`, `tersedia`, `alasan`, `kondisi_tabung`, `segel_pin`, `tuas_pegangan`, `label_segitiga`, `label_instruksi`, `kondisi_selang`, `tekanan_tabung`, `posisi`, `kondisi_roda`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id', '$apar_id', '$tersedia', '$alasan', '$kondisi_tabung', '$segel_pin', '$tuas_pegangan', '$label_segitiga', '$label_instruksi', '$kondisi_selang', '$tekanan_tabung', '$posisi', '$kondisi_roda', '$durasi_inspeksi', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_apar` (`id`, `user_id`, `apar_id`, `tersedia`, `alasan`, `kondisi_tabung`, `segel_pin`, `tuas_pegangan`, `label_segitiga`, `label_instruksi`, `kondisi_selang`, `tekanan_tabung`, `posisi`, `kondisi_roda`, `durasi_inspeksi`, `created_at`";
+
+        if($tersedia_img != null) $sql .= ", `tersedia_img`";
+        if($alasan_img != null) $sql .= ", `alasan_img`";
+        if($kondisi_tabung_img != null) $sql .= ", `kondisi_tabung_img`";
+        if($segel_pin_img != null) $sql .= ", `segel_pin_img`";
+        if($tuas_pegangan_img != null) $sql .= ", `tuas_pegangan_img`";
+        if($label_segitiga_img != null) $sql .= ", `label_segitiga_img`";
+        if($label_instruksi_img != null) $sql .= ", `label_instruksi_img`";
+        if($kondisi_selang_img != null) $sql .= ", `kondisi_selang_img`";
+        if($tekanan_tabung_img != null) $sql .= ", `tekanan_tabung_img`";
+        if($posisi_img != null) $sql .= ", `posisi_img`";
+        if($kondisi_roda_img != null) $sql .= ", `kondisi_roda_img`";
+
+        $sql .= ") VALUES (NULL, '$user_id', '$apar_id', '$tersedia', '$alasan', '$kondisi_tabung', '$segel_pin', '$tuas_pegangan', '$label_segitiga', '$label_instruksi', '$kondisi_selang', '$tekanan_tabung', '$posisi', '$kondisi_roda', '$durasi_inspeksi', current_timestamp()";
+
+        if($tersedia_img != null) $sql .= ", '$tersedia_img'";
+        if($alasan_img != null) $sql .= ", '$alasan_img'";
+        if($kondisi_tabung_img != null) $sql .= ", '$kondisi_tabung_img'";
+        if($segel_pin_img != null) $sql .= ", '$segel_pin_img'";
+        if($tuas_pegangan_img != null) $sql .= ", '$tuas_pegangan_img'";
+        if($label_segitiga_img != null) $sql .= ", '$label_segitiga_img'";
+        if($label_instruksi_img != null) $sql .= ", '$label_instruksi_img'";
+        if($kondisi_selang_img != null) $sql .= ", '$kondisi_selang_img'";
+        if($tekanan_tabung_img != null) $sql .= ", '$tekanan_tabung_img'";
+        if($posisi_img != null) $sql .= ", '$posisi_img'";
+        if($kondisi_roda_img != null) $sql .= ", '$kondisi_roda_img'";
+
+        $sql .= ");";
+
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

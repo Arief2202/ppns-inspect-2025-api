@@ -2,10 +2,24 @@
     include "koneksi.php";
     header('Content-Type: application/json; charset=utf-8');
     http_response_code(406);
+    
+    function checkUploadedFile($postName){
+        $target_dir = "uploads/";
+        if(isset($_FILES[$postName])){
+            $target_file = $target_dir . basename($_FILES[$postName]["name"]);
+            if (move_uploaded_file($_FILES[$postName]["tmp_name"], $target_file)) {
+               return '/uploads/'.$_FILES[$postName]["name"];
+            } else {
+                return null;
+            }
+        }
+    }
 
     if(isset($_GET['create']) || isset($_POST['create'])){
         $user_id;
         $lokasi;
+        $durasi_inspeksi;
+        
         $pintu_terkunci;
         $pintu_berfungsi;
         $ganjal;
@@ -15,7 +29,16 @@
         $eksit_terkunci;
         $visibilitas_eksit;
         $pencahayaan_eksit;
-        $durasi_inspeksi;
+
+        $pintu_terkunci_img;
+        $pintu_berfungsi_img;
+        $ganjal_img;
+        $ganjal_tangga_img;
+        $kebersihan_tangga_img;
+        $hambatan_eksit_img;
+        $eksit_terkunci_img;
+        $visibilitas_eksit_img;
+        $pencahayaan_eksit_img;
         
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -63,7 +86,42 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_jalur_evakuasi` (`id`, `user_id`, `lokasi`, `pintu_terkunci`, `pintu_berfungsi`, `ganjal`, `ganjal_tangga`, `kebersihan_tangga`, `hambatan_eksit`, `eksit_terkunci`, `visibilitas_eksit`, `pencahayaan_eksit`, `durasi_inspeksi`, `created_at`) VALUES (NULL, $user_id, '$lokasi', '$pintu_terkunci', '$pintu_berfungsi', '$ganjal', '$ganjal_tangga', '$kebersihan_tangga', '$hambatan_eksit', '$eksit_terkunci', '$visibilitas_eksit', '$pencahayaan_eksit', '$durasi_inspeksi', current_timestamp());";
+        $pintu_terkunci_img = checkUploadedFile('pintu_terkunci_img');
+        $pintu_berfungsi_img = checkUploadedFile('pintu_berfungsi_img');
+        $ganjal_img = checkUploadedFile('ganjal_img');
+        $ganjal_tangga_img = checkUploadedFile('ganjal_tangga_img');
+        $kebersihan_tangga_img = checkUploadedFile('kebersihan_tangga_img');
+        $hambatan_eksit_img = checkUploadedFile('hambatan_eksit_img');
+        $eksit_terkunci_img = checkUploadedFile('eksit_terkunci_img');
+        $visibilitas_eksit_img = checkUploadedFile('visibilitas_eksit_img');
+        $pencahayaan_eksit_img = checkUploadedFile('pencahayaan_eksit_img');
+
+        $sql = "INSERT INTO `inspeksi_jalur_evakuasi` (`id`, `user_id`, `lokasi`, `pintu_terkunci`, `pintu_berfungsi`, `ganjal`, `ganjal_tangga`, `kebersihan_tangga`, `hambatan_eksit`, `eksit_terkunci`, `visibilitas_eksit`, `pencahayaan_eksit`, `durasi_inspeksi`, `created_at`";
+
+        if($pintu_terkunci_img != null) $sql .= ", `pintu_terkunci_img`";
+        if($pintu_berfungsi_img != null) $sql .= ", `pintu_berfungsi_img`";
+        if($ganjal_img != null) $sql .= ", `ganjal_img`";
+        if($ganjal_tangga_img != null) $sql .= ", `ganjal_tangga_img`";
+        if($kebersihan_tangga_img != null) $sql .= ", `kebersihan_tangga_img`";
+        if($hambatan_eksit_img != null) $sql .= ", `hambatan_eksit_img`";
+        if($eksit_terkunci_img != null) $sql .= ", `eksit_terkunci_img`";
+        if($visibilitas_eksit_img != null) $sql .= ", `visibilitas_eksit_img`";
+        if($pencahayaan_eksit_img != null) $sql .= ", `pencahayaan_eksit_img`";
+
+        $sql .= ") VALUES (NULL, $user_id, '$lokasi', '$pintu_terkunci', '$pintu_berfungsi', '$ganjal', '$ganjal_tangga', '$kebersihan_tangga', '$hambatan_eksit', '$eksit_terkunci', '$visibilitas_eksit', '$pencahayaan_eksit', '$durasi_inspeksi', current_timestamp()";
+
+        if($pintu_terkunci_img != null) $sql .= ", '$pintu_terkunci_img'";
+        if($pintu_berfungsi_img != null) $sql .= ", '$pintu_berfungsi_img'";
+        if($ganjal_img != null) $sql .= ", '$ganjal_img'";
+        if($ganjal_tangga_img != null) $sql .= ", '$ganjal_tangga_img'";
+        if($kebersihan_tangga_img != null) $sql .= ", '$kebersihan_tangga_img'";
+        if($hambatan_eksit_img != null) $sql .= ", '$hambatan_eksit_img'";
+        if($eksit_terkunci_img != null) $sql .= ", '$eksit_terkunci_img'";
+        if($visibilitas_eksit_img != null) $sql .= ", '$visibilitas_eksit_img'";
+        if($pencahayaan_eksit_img != null) $sql .= ", '$pencahayaan_eksit_img'";
+
+        $sql .= ");";
+
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

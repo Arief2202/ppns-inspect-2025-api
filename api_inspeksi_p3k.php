@@ -3,11 +3,24 @@
     date_default_timezone_set("Asia/Jakarta");
     header('Content-Type: application/json; charset=utf-8');
     http_response_code(406);
-
+    
+    function checkUploadedFile($postName){
+        $target_dir = "uploads/";
+        if(isset($_FILES[$postName])){
+            $target_file = $target_dir . basename($_FILES[$postName]["name"]);
+            if (move_uploaded_file($_FILES[$postName]["tmp_name"], $target_file)) {
+               return '/uploads/'.$_FILES[$postName]["name"];
+            } else {
+                return null;
+            }
+        }
+    }
     if(isset($_GET['create']) || isset($_POST['create'])){
 
         $user_id = null;
         $kotak_id = null;
+        $durasi_inspeksi = null;
+        
         $kasa_steril_bungkus = null;
         $perban5 = null;
         $perban10 = null;
@@ -28,7 +41,27 @@
         $obat_luka_bakar = null;
         $buku_catatan = null;
         $daftar_isi = null;
-        $durasi_inspeksi = null;
+
+        $kasa_steril_bungkus_img = null;
+        $perban5_img = null;
+        $perban10_img = null;
+        $plester125_img = null;
+        $plester_cepat_img = null;
+        $kapas_img = null;
+        $mitella_img = null;
+        $gunting_img = null;
+        $peniti_img = null;
+        $sarung_tangan_img = null;
+        $masker_img = null;
+        $pinset_img = null;
+        $lampu_senter_img = null;
+        $gelas_cuci_mata_img = null;
+        $kantong_plastik_img = null;
+        $aquades_img = null;
+        $oxygen_img = null;
+        $obat_luka_bakar_img = null;
+        $buku_catatan_img = null;
+        $daftar_isi_img = null;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -82,8 +115,6 @@
         }
         
         if( 
-            $user_id != 'Ada' || 
-            $kotak_id != 'Ada' || 
             $kasa_steril_bungkus != 'Ada' || 
             $perban5 != 'Ada' || 
             $perban10 != 'Ada' || 
@@ -112,7 +143,75 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `kasa_steril_bungkus`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `oxygen`, `obat_luka_bakar`, `buku_catatan`, `daftar_isi`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id','$kotak_id','$kasa_steril_bungkus','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik', '$aquades', '$oxygen', '$obat_luka_bakar', '$buku_catatan', '$daftar_isi', '$durasi_inspeksi', current_timestamp());";
+        $kasa_steril_bungkus_img = checkUploadedFile('kasa_steril_bungkus_img');
+        $perban5_img = checkUploadedFile('perban5_img');
+        $perban10_img = checkUploadedFile('perban10_img');
+        $plester125_img = checkUploadedFile('plester125_img');
+        $plester_cepat_img = checkUploadedFile('plester_cepat_img');
+        $kapas_img = checkUploadedFile('kapas_img');
+        $mitella_img = checkUploadedFile('mitella_img');
+        $gunting_img = checkUploadedFile('gunting_img');
+        $peniti_img = checkUploadedFile('peniti_img');
+        $sarung_tangan_img = checkUploadedFile('sarung_tangan_img');
+        $masker_img = checkUploadedFile('masker_img');
+        $pinset_img = checkUploadedFile('pinset_img');
+        $lampu_senter_img = checkUploadedFile('lampu_senter_img');
+        $gelas_cuci_mata_img = checkUploadedFile('gelas_cuci_mata_img');
+        $kantong_plastik_img = checkUploadedFile('kantong_plastik_img');
+        $aquades_img = checkUploadedFile('aquades_img');
+        $oxygen_img = checkUploadedFile('oxygen_img');
+        $obat_luka_bakar_img = checkUploadedFile('obat_luka_bakar_img');
+        $buku_catatan_img = checkUploadedFile('buku_catatan_img');
+        $daftar_isi_img = checkUploadedFile('daftar_isi_img');
+
+        $sql = "INSERT INTO `inspeksi_p3k` (`id`, `user_id`, `kotak_id`, `kasa_steril_bungkus`, `perban5`, `perban10`, `plester125`, `plester_cepat`, `kapas`, `mitella`, `gunting`, `peniti`, `sarung_tangan`, `masker`, `pinset`, `lampu_senter`, `gelas_cuci_mata`, `kantong_plastik`, `aquades`, `oxygen`, `obat_luka_bakar`, `buku_catatan`, `daftar_isi`, `durasi_inspeksi`, `created_at`";
+
+        if($kasa_steril_bungkus_img != null) $sql .= ", `kasa_steril_bungkus_img`";
+        if($perban5_img != null) $sql .= ", `perban5_img`";
+        if($perban10_img != null) $sql .= ", `perban10_img`";
+        if($plester125_img != null) $sql .= ", `plester125_img`";
+        if($plester_cepat_img != null) $sql .= ", `plester_cepat_img`";
+        if($kapas_img != null) $sql .= ", `kapas_img`";
+        if($mitella_img != null) $sql .= ", `mitella_img`";
+        if($gunting_img != null) $sql .= ", `gunting_img`";
+        if($peniti_img != null) $sql .= ", `peniti_img`";
+        if($sarung_tangan_img != null) $sql .= ", `sarung_tangan_img`";
+        if($masker_img != null) $sql .= ", `masker_img`";
+        if($pinset_img != null) $sql .= ", `pinset_img`";
+        if($lampu_senter_img != null) $sql .= ", `lampu_senter_img`";
+        if($gelas_cuci_mata_img != null) $sql .= ", `gelas_cuci_mata_img`";
+        if($kantong_plastik_img != null) $sql .= ", `kantong_plastik_img`";
+        if($aquades_img != null) $sql .= ", `aquades_img`";
+        if($oxygen_img != null) $sql .= ", `oxygen_img`";
+        if($obat_luka_bakar_img != null) $sql .= ", `obat_luka_bakar_img`";
+        if($buku_catatan_img != null) $sql .= ", `buku_catatan_img`";
+        if($daftar_isi_img != null) $sql .= ", `daftar_isi_img`";
+
+        $sql .= ") VALUES (NULL, '$user_id','$kotak_id','$kasa_steril_bungkus','$perban5','$perban10','$plester125','$plester_cepat','$kapas','$mitella','$gunting','$peniti','$sarung_tangan','$masker','$pinset','$lampu_senter','$gelas_cuci_mata','$kantong_plastik', '$aquades', '$oxygen', '$obat_luka_bakar', '$buku_catatan', '$daftar_isi', '$durasi_inspeksi', current_timestamp()";
+
+        if($kasa_steril_bungkus_img != null) $sql .= ", '$kasa_steril_bungkus_img'";
+        if($perban5_img != null) $sql .= ", '$perban5_img'";
+        if($perban10_img != null) $sql .= ", '$perban10_img'";
+        if($plester125_img != null) $sql .= ", '$plester125_img'";
+        if($plester_cepat_img != null) $sql .= ", '$plester_cepat_img'";
+        if($kapas_img != null) $sql .= ", '$kapas_img'";
+        if($mitella_img != null) $sql .= ", '$mitella_img'";
+        if($gunting_img != null) $sql .= ", '$gunting_img'";
+        if($peniti_img != null) $sql .= ", '$peniti_img'";
+        if($sarung_tangan_img != null) $sql .= ", '$sarung_tangan_img'";
+        if($masker_img != null) $sql .= ", '$masker_img'";
+        if($pinset_img != null) $sql .= ", '$pinset_img'";
+        if($lampu_senter_img != null) $sql .= ", '$lampu_senter_img'";
+        if($gelas_cuci_mata_img != null) $sql .= ", '$gelas_cuci_mata_img'";
+        if($kantong_plastik_img != null) $sql .= ", '$kantong_plastik_img'";
+        if($aquades_img != null) $sql .= ", '$aquades_img'";
+        if($oxygen_img != null) $sql .= ", '$oxygen_img'";
+        if($obat_luka_bakar_img != null) $sql .= ", '$obat_luka_bakar_img'";
+        if($buku_catatan_img != null) $sql .= ", '$buku_catatan_img'";
+        if($daftar_isi_img != null) $sql .= ", '$daftar_isi_img'";
+
+        $sql .= ");";
+
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

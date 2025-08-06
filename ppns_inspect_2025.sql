@@ -77,8 +77,18 @@ CREATE TABLE `inspeksi_apar` (
   `kondisi_roda` varchar(255) NOT NULL DEFAULT 'Not Applicable',
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tersedia_img` varchar(255) DEFAULT NULL,
+  `kondisi_tabung_img` varchar(255) DEFAULT NULL,
+  `segel_pin_img` varchar(255) DEFAULT NULL,
+  `tuas_pegangan_img` varchar(255) DEFAULT NULL,
+  `label_segitiga_img` varchar(255) DEFAULT NULL,
+  `label_instruksi_img` varchar(255) DEFAULT NULL,
+  `kondisi_selang_img` varchar(255) DEFAULT NULL,
+  `tekanan_tabung_img` varchar(255) DEFAULT NULL,
+  `posisi_img` varchar(255) DEFAULT NULL,
+  `kondisi_roda_img` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,8 +112,16 @@ CREATE TABLE `inspeksi_hydrant_ihb` (
   `kondisi_tray` varchar(255) NOT NULL,
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `kondisi_kotak_img` varchar(255) DEFAULT NULL,
+  `posisi_kotak_img` varchar(255) DEFAULT NULL,
+  `kondisi_nozzle_img` varchar(255) DEFAULT NULL,
+  `kondisi_selang_img` varchar(255) DEFAULT NULL,
+  `jenis_selang_img` varchar(255) DEFAULT NULL,
+  `kondisi_coupling_img` varchar(255) DEFAULT NULL,
+  `kondisi_landing_valve_img` varchar(255) DEFAULT NULL,
+  `kondisi_tray_img` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,8 +148,19 @@ CREATE TABLE `inspeksi_hydrant_ohb` (
   `tekanan_hydrant` varchar(255) NOT NULL,
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `kondisi_kotak_img` varchar(255) DEFAULT NULL,
+  `posisi_kotak_img` varchar(255) DEFAULT NULL,
+  `kondisi_nozzle_img` varchar(255) DEFAULT NULL,
+  `kondisi_selang_img` varchar(255) DEFAULT NULL,
+  `jenis_selang_img` varchar(255) DEFAULT NULL,
+  `kondisi_coupling_img` varchar(255) DEFAULT NULL,
+  `tuas_pembuka_img` varchar(255) DEFAULT NULL,
+  `kondisi_outlet_img` varchar(255) DEFAULT NULL,
+  `penutup_cop_img` varchar(255) DEFAULT NULL,
+  `flushing_hydrant_img` varchar(255) DEFAULT NULL,
+  `tekanan_hydrant_img` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,8 +185,17 @@ CREATE TABLE `inspeksi_jalur_evakuasi` (
   `pencahayaan_eksit` varchar(255) NOT NULL,
   `durasi_inspeksi` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `pintu_terkunci_img` varchar(255) DEFAULT NULL,
+  `pintu_berfungsi_img` varchar(255) DEFAULT NULL,
+  `ganjal_img` varchar(255) DEFAULT NULL,
+  `ganjal_tangga_img` varchar(255) DEFAULT NULL,
+  `kebersihan_tangga_img` varchar(255) DEFAULT NULL,
+  `hambatan_eksit_img` varchar(255) DEFAULT NULL,
+  `eksit_terkunci_img` varchar(255) DEFAULT NULL,
+  `visibilitas_eksit_img` varchar(255) DEFAULT NULL,
+  `pencahayaan_eksit_img` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,8 +231,28 @@ CREATE TABLE `inspeksi_p3k` (
   `daftar_isi` varchar(255) NOT NULL,
   `durasi_inspeksi` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `kasa_steril_bungkus_img` varchar(255) DEFAULT NULL,
+  `perban5_img` varchar(255) DEFAULT NULL,
+  `perban10_img` varchar(255) DEFAULT NULL,
+  `plester125_img` varchar(255) DEFAULT NULL,
+  `plester_cepat_img` varchar(255) DEFAULT NULL,
+  `kapas_img` varchar(255) DEFAULT NULL,
+  `mitella_img` varchar(255) DEFAULT NULL,
+  `gunting_img` varchar(255) DEFAULT NULL,
+  `peniti_img` varchar(255) DEFAULT NULL,
+  `sarung_tangan_img` varchar(255) DEFAULT NULL,
+  `masker_img` varchar(255) DEFAULT NULL,
+  `pinset_img` varchar(255) DEFAULT NULL,
+  `lampu_senter_img` varchar(255) DEFAULT NULL,
+  `gelas_cuci_mata_img` varchar(255) DEFAULT NULL,
+  `kantong_plastik_img` varchar(255) DEFAULT NULL,
+  `aquades_img` varchar(255) DEFAULT NULL,
+  `oxygen_img` varchar(255) DEFAULT NULL,
+  `obat_luka_bakar_img` varchar(255) DEFAULT NULL,
+  `buku_catatan_img` varchar(255) DEFAULT NULL,
+  `daftar_isi_img` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -237,9 +295,39 @@ CREATE TABLE `inspeksi_rumah_pompa` (
   `terminal_baterai` varchar(255) NOT NULL,
   `pemanas_jaket` varchar(255) NOT NULL,
   `kondisi_uap` varchar(255) NOT NULL,
+  `durasi_inspeksi` varchar(255) DEFAULT '00:00',
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `kondisi_img` varchar(255) DEFAULT NULL,
+  `ventilasi_img` varchar(255) DEFAULT NULL,
+  `katup_hisap_img` varchar(255) DEFAULT NULL,
+  `perpipaan_img` varchar(255) DEFAULT NULL,
+  `pengukur_hisap_img` varchar(255) DEFAULT NULL,
+  `pengukur_sistem_img` varchar(255) DEFAULT NULL,
+  `tangki_hisap_img` varchar(255) DEFAULT NULL,
+  `saringan_hisap_img` varchar(255) DEFAULT NULL,
+  `katup_uji_img` varchar(255) DEFAULT NULL,
+  `lampu_pengontrol_img` varchar(255) DEFAULT NULL,
+  `lampu_saklar_img` varchar(255) DEFAULT NULL,
+  `saklar_isolasi_img` varchar(255) DEFAULT NULL,
+  `lampu_rotasi_img` varchar(255) DEFAULT NULL,
+  `level_oli_motor_img` varchar(255) DEFAULT NULL,
+  `pompa_pemeliharaan_img` varchar(255) DEFAULT NULL,
+  `tangki_bahan_bakar_img` varchar(255) DEFAULT NULL,
+  `saklar_pemilih_img` varchar(255) DEFAULT NULL,
+  `pembacaan_tegangan_img` varchar(255) DEFAULT NULL,
+  `pembacaan_arus_img` varchar(255) DEFAULT NULL,
+  `lampu_baterai_img` varchar(255) DEFAULT NULL,
+  `semua_lampu_alarm_img` varchar(255) DEFAULT NULL,
+  `pengukur_waktu_img` varchar(255) DEFAULT NULL,
+  `ketinggian_oli_img` varchar(255) DEFAULT NULL,
+  `level_oli_mesin_img` varchar(255) DEFAULT NULL,
+  `ketinggian_air_img` varchar(255) DEFAULT NULL,
+  `tingkat_elektrolit_img` varchar(255) DEFAULT NULL,
+  `terminal_baterai_img` varchar(255) DEFAULT NULL,
+  `pemanas_jaket_img` varchar(255) DEFAULT NULL,
+  `kondisi_uap_img` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +345,7 @@ CREATE TABLE `notification` (
   `displayed` tinyint(1) NOT NULL DEFAULT 0,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2034 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=996 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -303,4 +391,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-31  0:45:49
+-- Dump completed on 2025-08-06 23:46:52

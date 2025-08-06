@@ -2,10 +2,24 @@
     include "koneksi.php";
     header('Content-Type: application/json; charset=utf-8');
     http_response_code(406);
+    
+    function checkUploadedFile($postName){
+        $target_dir = "uploads/";
+        if(isset($_FILES[$postName])){
+            $target_file = $target_dir . basename($_FILES[$postName]["name"]);
+            if (move_uploaded_file($_FILES[$postName]["tmp_name"], $target_file)) {
+               return '/uploads/'.$_FILES[$postName]["name"];
+            } else {
+                return null;
+            }
+        }
+    }
 
     if(isset($_GET['create']) || isset($_POST['create'])){
         $user_id;
         $lokasi;
+        $durasi_inspeksi;
+
         $kondisi;
         $ventilasi;
         $katup_hisap;
@@ -35,6 +49,36 @@
         $terminal_baterai;
         $pemanas_jaket;
         $kondisi_uap;
+
+        $kondisi_img;
+        $ventilasi_img;
+        $katup_hisap_img;
+        $perpipaan_img;
+        $pengukur_hisap_img;
+        $pengukur_sistem_img;
+        $tangki_hisap_img;
+        $saringan_hisap_img;
+        $katup_uji_img;
+        $lampu_pengontrol_img;
+        $lampu_saklar_img;
+        $saklar_isolasi_img;
+        $lampu_rotasi_img;
+        $level_oli_motor_img;
+        $pompa_pemeliharaan_img;
+        $tangki_bahan_bakar_img;
+        $saklar_pemilih_img;
+        $pembacaan_tegangan_img;
+        $pembacaan_arus_img;
+        $lampu_baterai_img;
+        $semua_lampu_alarm_img;
+        $pengukur_waktu_img;
+        $ketinggian_oli_img;
+        $level_oli_mesin_img;
+        $ketinggian_air_img;
+        $tingkat_elektrolit_img;
+        $terminal_baterai_img;
+        $pemanas_jaket_img;
+        $kondisi_uap_img;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -68,6 +112,7 @@
             $terminal_baterai = $_GET['terminal_baterai'];
             $pemanas_jaket = $_GET['pemanas_jaket'];
             $kondisi_uap = $_GET['kondisi_uap'];
+            $durasi_inspeksi = $_GET['durasi_inspeksi'];
         }
         if(isset($_POST['create'])){
             $user_id = $_POST['user_id'];
@@ -101,6 +146,7 @@
             $terminal_baterai = $_POST['terminal_baterai'];
             $pemanas_jaket = $_POST['pemanas_jaket'];
             $kondisi_uap = $_POST['kondisi_uap'];
+            $durasi_inspeksi = $_POST['durasi_inspeksi'];
         }
         
         if( $kondisi != 'Aman' || 
@@ -139,7 +185,102 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_rumah_pompa` (`id`, `user_id`, `lokasi`, `kondisi`, `ventilasi`, `katup_hisap`, `perpipaan`, `pengukur_hisap`, `pengukur_sistem`, `tangki_hisap`, `saringan_hisap`, `katup_uji`, `lampu_pengontrol`, `lampu_saklar`, `saklar_isolasi`, `lampu_rotasi`, `level_oli_motor`, `pompa_pemeliharaan`, `tangki_bahan_bakar`, `saklar_pemilih`, `pembacaan_tegangan`, `pembacaan_arus`, `lampu_baterai`, `semua_lampu_alarm`, `pengukur_waktu`, `ketinggian_oli`, `level_oli_mesin`, `ketinggian_air`, `tingkat_elektrolit`, `terminal_baterai`, `pemanas_jaket`, `kondisi_uap`, `timestamp`) VALUES (NULL, $user_id, '$lokasi', '$kondisi', '$ventilasi', '$katup_hisap', '$perpipaan', '$pengukur_hisap', '$pengukur_sistem', '$tangki_hisap', '$saringan_hisap', '$katup_uji', '$lampu_pengontrol', '$lampu_saklar', '$saklar_isolasi', '$lampu_rotasi', '$level_oli_motor', '$pompa_pemeliharaan', '$tangki_bahan_bakar', '$saklar_pemilih', '$pembacaan_tegangan', '$pembacaan_arus', '$lampu_baterai', '$semua_lampu_alarm', '$pengukur_waktu', '$ketinggian_oli', '$level_oli_mesin', '$ketinggian_air', '$tingkat_elektrolit', '$terminal_baterai', '$pemanas_jaket', '$kondisi_uap', current_timestamp());";
+        $kondisi_img = checkUploadedFile('kondisi_img');
+        $ventilasi_img = checkUploadedFile('ventilasi_img');
+        $katup_hisap_img = checkUploadedFile('katup_hisap_img');
+        $perpipaan_img = checkUploadedFile('perpipaan_img');
+        $pengukur_hisap_img = checkUploadedFile('pengukur_hisap_img');
+        $pengukur_sistem_img = checkUploadedFile('pengukur_sistem_img');
+        $tangki_hisap_img = checkUploadedFile('tangki_hisap_img');
+        $saringan_hisap_img = checkUploadedFile('saringan_hisap_img');
+        $katup_uji_img = checkUploadedFile('katup_uji_img');
+        $lampu_pengontrol_img = checkUploadedFile('lampu_pengontrol_img');
+        $lampu_saklar_img = checkUploadedFile('lampu_saklar_img');
+        $saklar_isolasi_img = checkUploadedFile('saklar_isolasi_img');
+        $lampu_rotasi_img = checkUploadedFile('lampu_rotasi_img');
+        $level_oli_motor_img = checkUploadedFile('level_oli_motor_img');
+        $pompa_pemeliharaan_img = checkUploadedFile('pompa_pemeliharaan_img');
+        $tangki_bahan_bakar_img = checkUploadedFile('tangki_bahan_bakar_img');
+        $saklar_pemilih_img = checkUploadedFile('saklar_pemilih_img');
+        $pembacaan_tegangan_img = checkUploadedFile('pembacaan_tegangan_img');
+        $pembacaan_arus_img = checkUploadedFile('pembacaan_arus_img');
+        $lampu_baterai_img = checkUploadedFile('lampu_baterai_img');
+        $semua_lampu_alarm_img = checkUploadedFile('semua_lampu_alarm_img');
+        $pengukur_waktu_img = checkUploadedFile('pengukur_waktu_img');
+        $ketinggian_oli_img = checkUploadedFile('ketinggian_oli_img');
+        $level_oli_mesin_img = checkUploadedFile('level_oli_mesin_img');
+        $ketinggian_air_img = checkUploadedFile('ketinggian_air_img');
+        $tingkat_elektrolit_img = checkUploadedFile('tingkat_elektrolit_img');
+        $terminal_baterai_img = checkUploadedFile('terminal_baterai_img');
+        $pemanas_jaket_img = checkUploadedFile('pemanas_jaket_img');
+        $kondisi_uap_img = checkUploadedFile('kondisi_uap_img');
+
+        $sql = "INSERT INTO `inspeksi_rumah_pompa` (`id`, `user_id`, `lokasi`, `kondisi`, `ventilasi`, `katup_hisap`, `perpipaan`, `pengukur_hisap`, `pengukur_sistem`, `tangki_hisap`, `saringan_hisap`, `katup_uji`, `lampu_pengontrol`, `lampu_saklar`, `saklar_isolasi`, `lampu_rotasi`, `level_oli_motor`, `pompa_pemeliharaan`, `tangki_bahan_bakar`, `saklar_pemilih`, `pembacaan_tegangan`, `pembacaan_arus`, `lampu_baterai`, `semua_lampu_alarm`, `pengukur_waktu`, `ketinggian_oli`, `level_oli_mesin`, `ketinggian_air`, `tingkat_elektrolit`, `terminal_baterai`, `pemanas_jaket`, `kondisi_uap`, `durasi_inspeksi`, `timestamp`";
+
+        if($kondisi_img != null) $sql .= ", `kondisi_img`";
+        if($ventilasi_img != null) $sql .= ", `ventilasi_img`";
+        if($katup_hisap_img != null) $sql .= ", `katup_hisap_img`";
+        if($perpipaan_img != null) $sql .= ", `perpipaan_img`";
+        if($pengukur_hisap_img != null) $sql .= ", `pengukur_hisap_img`";
+        if($pengukur_sistem_img != null) $sql .= ", `pengukur_sistem_img`";
+        if($tangki_hisap_img != null) $sql .= ", `tangki_hisap_img`";
+        if($saringan_hisap_img != null) $sql .= ", `saringan_hisap_img`";
+        if($katup_uji_img != null) $sql .= ", `katup_uji_img`";
+        if($lampu_pengontrol_img != null) $sql .= ", `lampu_pengontrol_img`";
+        if($lampu_saklar_img != null) $sql .= ", `lampu_saklar_img`";
+        if($saklar_isolasi_img != null) $sql .= ", `saklar_isolasi_img`";
+        if($lampu_rotasi_img != null) $sql .= ", `lampu_rotasi_img`";
+        if($level_oli_motor_img != null) $sql .= ", `level_oli_motor_img`";
+        if($pompa_pemeliharaan_img != null) $sql .= ", `pompa_pemeliharaan_img`";
+        if($tangki_bahan_bakar_img != null) $sql .= ", `tangki_bahan_bakar_img`";
+        if($saklar_pemilih_img != null) $sql .= ", `saklar_pemilih_img`";
+        if($pembacaan_tegangan_img != null) $sql .= ", `pembacaan_tegangan_img`";
+        if($pembacaan_arus_img != null) $sql .= ", `pembacaan_arus_img`";
+        if($lampu_baterai_img != null) $sql .= ", `lampu_baterai_img`";
+        if($semua_lampu_alarm_img != null) $sql .= ", `semua_lampu_alarm_img`";
+        if($pengukur_waktu_img != null) $sql .= ", `pengukur_waktu_img`";
+        if($ketinggian_oli_img != null) $sql .= ", `ketinggian_oli_img`";
+        if($level_oli_mesin_img != null) $sql .= ", `level_oli_mesin_img`";
+        if($ketinggian_air_img != null) $sql .= ", `ketinggian_air_img`";
+        if($tingkat_elektrolit_img != null) $sql .= ", `tingkat_elektrolit_img`";
+        if($terminal_baterai_img != null) $sql .= ", `terminal_baterai_img`";
+        if($pemanas_jaket_img != null) $sql .= ", `pemanas_jaket_img`";
+        if($kondisi_uap_img != null) $sql .= ", `kondisi_uap_img`";
+
+        $sql .= ") VALUES (NULL, $user_id, '$lokasi', '$kondisi', '$ventilasi', '$katup_hisap', '$perpipaan', '$pengukur_hisap', '$pengukur_sistem', '$tangki_hisap', '$saringan_hisap', '$katup_uji', '$lampu_pengontrol', '$lampu_saklar', '$saklar_isolasi', '$lampu_rotasi', '$level_oli_motor', '$pompa_pemeliharaan', '$tangki_bahan_bakar', '$saklar_pemilih', '$pembacaan_tegangan', '$pembacaan_arus', '$lampu_baterai', '$semua_lampu_alarm', '$pengukur_waktu', '$ketinggian_oli', '$level_oli_mesin', '$ketinggian_air', '$tingkat_elektrolit', '$terminal_baterai', '$pemanas_jaket', '$kondisi_uap', '$durasi_inspeksi', current_timestamp()";
+
+        if($kondisi_img != null) $sql .= ", '$kondisi_img'";
+        if($ventilasi_img != null) $sql .= ", '$ventilasi_img'";
+        if($katup_hisap_img != null) $sql .= ", '$katup_hisap_img'";
+        if($perpipaan_img != null) $sql .= ", '$perpipaan_img'";
+        if($pengukur_hisap_img != null) $sql .= ", '$pengukur_hisap_img'";
+        if($pengukur_sistem_img != null) $sql .= ", '$pengukur_sistem_img'";
+        if($tangki_hisap_img != null) $sql .= ", '$tangki_hisap_img'";
+        if($saringan_hisap_img != null) $sql .= ", '$saringan_hisap_img'";
+        if($katup_uji_img != null) $sql .= ", '$katup_uji_img'";
+        if($lampu_pengontrol_img != null) $sql .= ", '$lampu_pengontrol_img'";
+        if($lampu_saklar_img != null) $sql .= ", '$lampu_saklar_img'";
+        if($saklar_isolasi_img != null) $sql .= ", '$saklar_isolasi_img'";
+        if($lampu_rotasi_img != null) $sql .= ", '$lampu_rotasi_img'";
+        if($level_oli_motor_img != null) $sql .= ", '$level_oli_motor_img'";
+        if($pompa_pemeliharaan_img != null) $sql .= ", '$pompa_pemeliharaan_img'";
+        if($tangki_bahan_bakar_img != null) $sql .= ", '$tangki_bahan_bakar_img'";
+        if($saklar_pemilih_img != null) $sql .= ", '$saklar_pemilih_img'";
+        if($pembacaan_tegangan_img != null) $sql .= ", '$pembacaan_tegangan_img'";
+        if($pembacaan_arus_img != null) $sql .= ", '$pembacaan_arus_img'";
+        if($lampu_baterai_img != null) $sql .= ", '$lampu_baterai_img'";
+        if($semua_lampu_alarm_img != null) $sql .= ", '$semua_lampu_alarm_img'";
+        if($pengukur_waktu_img != null) $sql .= ", '$pengukur_waktu_img'";
+        if($ketinggian_oli_img != null) $sql .= ", '$ketinggian_oli_img'";
+        if($level_oli_mesin_img != null) $sql .= ", '$level_oli_mesin_img'";
+        if($ketinggian_air_img != null) $sql .= ", '$ketinggian_air_img'";
+        if($tingkat_elektrolit_img != null) $sql .= ", '$tingkat_elektrolit_img'";
+        if($terminal_baterai_img != null) $sql .= ", '$terminal_baterai_img'";
+        if($pemanas_jaket_img != null) $sql .= ", '$pemanas_jaket_img'";
+        if($kondisi_uap_img != null) $sql .= ", '$kondisi_uap_img'";
+
+        $sql .= ");";
+
         // echo $sql; die;
         $result = mysqli_query($conn, $sql);
         if($result){

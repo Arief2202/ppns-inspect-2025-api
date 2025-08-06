@@ -2,10 +2,24 @@
     include "koneksi.php";
     header('Content-Type: application/json; charset=utf-8');
     http_response_code(406);
+    
+    function checkUploadedFile($postName){
+        $target_dir = "uploads/";
+        if(isset($_FILES[$postName])){
+            $target_file = $target_dir . basename($_FILES[$postName]["name"]);
+            if (move_uploaded_file($_FILES[$postName]["tmp_name"], $target_file)) {
+               return '/uploads/'.$_FILES[$postName]["name"];
+            } else {
+                return null;
+            }
+        }
+    }
 
     if(isset($_GET['create']) || isset($_POST['create'])){
         $user_id;
         $hydrant_id;
+        $durasi_inspeksi;
+        
         $kondisi_kotak;
         $posisi_kotak;
         $kondisi_nozzle;
@@ -17,7 +31,18 @@
         $penutup_cop;
         $flushing_hydrant;
         $tekanan_hydrant;
-        $durasi_inspeksi;
+        
+        $kondisi_kotak_img;
+        $posisi_kotak_img;
+        $kondisi_nozzle_img;
+        $kondisi_selang_img;
+        $jenis_selang_img;
+        $kondisi_coupling_img;
+        $tuas_pembuka_img;
+        $kondisi_outlet_img;
+        $penutup_cop_img;
+        $flushing_hydrant_img;
+        $tekanan_hydrant_img;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -68,7 +93,48 @@
             }
         }
 
-        $sql = "INSERT INTO `inspeksi_hydrant_ohb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `tuas_pembuka`, `kondisi_outlet`, `penutup_cop`, `flushing_hydrant`, `tekanan_hydrant`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$tuas_pembuka', '$kondisi_outlet', '$penutup_cop', '$flushing_hydrant', '$tekanan_hydrant', '$durasi_inspeksi', current_timestamp());";
+        $kondisi_kotak_img = checkUploadedFile('kondisi_kotak_img');
+        $posisi_kotak_img = checkUploadedFile('posisi_kotak_img');
+        $kondisi_nozzle_img = checkUploadedFile('kondisi_nozzle_img');
+        $kondisi_selang_img = checkUploadedFile('kondisi_selang_img');
+        $jenis_selang_img = checkUploadedFile('jenis_selang_img');
+        $kondisi_coupling_img = checkUploadedFile('kondisi_coupling_img');
+        $tuas_pembuka_img = checkUploadedFile('tuas_pembuka_img');
+        $kondisi_outlet_img = checkUploadedFile('kondisi_outlet_img');
+        $penutup_cop_img = checkUploadedFile('penutup_cop_img');
+        $flushing_hydrant_img = checkUploadedFile('flushing_hydrant_img');
+        $tekanan_hydrant_img = checkUploadedFile('tekanan_hydrant_img');
+
+        $sql = "INSERT INTO `inspeksi_hydrant_ohb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `tuas_pembuka`, `kondisi_outlet`, `penutup_cop`, `flushing_hydrant`, `tekanan_hydrant`, `durasi_inspeksi`, `created_at`";
+
+        if($kondisi_kotak_img != null) $sql .= ", `kondisi_kotak_img`";
+        if($posisi_kotak_img != null) $sql .= ", `posisi_kotak_img`";
+        if($kondisi_nozzle_img != null) $sql .= ", `kondisi_nozzle_img`";
+        if($kondisi_selang_img != null) $sql .= ", `kondisi_selang_img`";
+        if($jenis_selang_img != null) $sql .= ", `jenis_selang_img`";
+        if($kondisi_coupling_img != null) $sql .= ", `kondisi_coupling_img`";
+        if($tuas_pembuka_img != null) $sql .= ", `tuas_pembuka_img`";
+        if($kondisi_outlet_img != null) $sql .= ", `kondisi_outlet_img`";
+        if($penutup_cop_img != null) $sql .= ", `penutup_cop_img`";
+        if($flushing_hydrant_img != null) $sql .= ", `flushing_hydrant_img`";
+        if($tekanan_hydrant_img != null) $sql .= ", `tekanan_hydrant_img`";
+
+        $sql .= ") VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$tuas_pembuka', '$kondisi_outlet', '$penutup_cop', '$flushing_hydrant', '$tekanan_hydrant', '$durasi_inspeksi', current_timestamp()";
+
+        if($kondisi_kotak_img != null) $sql .= ", '$kondisi_kotak_img'";
+        if($posisi_kotak_img != null) $sql .= ", '$posisi_kotak_img'";
+        if($kondisi_nozzle_img != null) $sql .= ", '$kondisi_nozzle_img'";
+        if($kondisi_selang_img != null) $sql .= ", '$kondisi_selang_img'";
+        if($jenis_selang_img != null) $sql .= ", '$jenis_selang_img'";
+        if($kondisi_coupling_img != null) $sql .= ", '$kondisi_coupling_img'";
+        if($tuas_pembuka_img != null) $sql .= ", '$tuas_pembuka_img'";
+        if($kondisi_outlet_img != null) $sql .= ", '$kondisi_outlet_img'";
+        if($penutup_cop_img != null) $sql .= ", '$penutup_cop_img'";
+        if($flushing_hydrant_img != null) $sql .= ", '$flushing_hydrant_img'";
+        if($tekanan_hydrant_img != null) $sql .= ", '$tekanan_hydrant_img'";
+
+        $sql .= ");";
+
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);

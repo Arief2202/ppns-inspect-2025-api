@@ -2,10 +2,24 @@
     include "koneksi.php";
     header('Content-Type: application/json; charset=utf-8');
     http_response_code(406);
+    
+    function checkUploadedFile($postName){
+        $target_dir = "uploads/";
+        if(isset($_FILES[$postName])){
+            $target_file = $target_dir . basename($_FILES[$postName]["name"]);
+            if (move_uploaded_file($_FILES[$postName]["tmp_name"], $target_file)) {
+               return '/uploads/'.$_FILES[$postName]["name"];
+            } else {
+                return null;
+            }
+        }
+    }
 
     if(isset($_GET['create']) || isset($_POST['create'])){
         $user_id;
         $hydrant_id;
+        $durasi_inspeksi;
+
         $kondisi_kotak;
         $posisi_kotak;
         $kondisi_nozzle;
@@ -14,7 +28,15 @@
         $kondisi_coupling;
         $kondisi_landing_valve;
         $kondisi_tray;
-        $durasi_inspeksi;
+
+        $kondisi_kotak_img;
+        $posisi_kotak_img;
+        $kondisi_nozzle_img;
+        $kondisi_selang_img;
+        $jenis_selang_img;
+        $kondisi_coupling_img;
+        $kondisi_landing_valve_img;
+        $kondisi_tray_img;
 
         if(isset($_GET['create'])){
             $user_id = $_GET['user_id'];
@@ -57,8 +79,40 @@
                 mysqli_query($conn, "INSERT INTO `notification` (`id`, `user_id`, `title`, `content`, `displayed`, `timestamp`) VALUES (NULL, '$userAdmin->id', 'Hydrant IHB Rusak Terinspeksi', 'Telah terdeteksi Hydrant IHB rusak dengan Nomor : $hydrant->nomor', '0', current_timestamp());");
             }
         }
+        
+        $kondisi_kotak_img = checkUploadedFile('kondisi_kotak_img');
+        $posisi_kotak_img = checkUploadedFile('posisi_kotak_img');
+        $kondisi_nozzle_img = checkUploadedFile('kondisi_nozzle_img');
+        $kondisi_selang_img = checkUploadedFile('kondisi_selang_img');
+        $jenis_selang_img = checkUploadedFile('jenis_selang_img');
+        $kondisi_coupling_img = checkUploadedFile('kondisi_coupling_img');
+        $kondisi_landing_valve_img = checkUploadedFile('kondisi_landing_valve_img');
+        $kondisi_tray_img = checkUploadedFile('kondisi_tray_img');
 
-        $sql = "INSERT INTO `inspeksi_hydrant_ihb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `kondisi_landing_valve`, `kondisi_tray`, `durasi_inspeksi`, `created_at`) VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$kondisi_landing_valve', '$kondisi_tray', '$durasi_inspeksi', current_timestamp());";
+        $sql = "INSERT INTO `inspeksi_hydrant_ihb` (`id`, `user_id`, `hydrant_id`, `kondisi_kotak`, `posisi_kotak`, `kondisi_nozzle`, `kondisi_selang`, `jenis_selang`, `kondisi_coupling`, `kondisi_landing_valve`, `kondisi_tray`, `durasi_inspeksi`, `created_at`";
+
+        if($kondisi_kotak_img != null) $sql .= ", `kondisi_kotak_img`";
+        if($posisi_kotak_img != null) $sql .= ", `posisi_kotak_img`";
+        if($kondisi_nozzle_img != null) $sql .= ", `kondisi_nozzle_img`";
+        if($kondisi_selang_img != null) $sql .= ", `kondisi_selang_img`";
+        if($jenis_selang_img != null) $sql .= ", `jenis_selang_img`";
+        if($kondisi_coupling_img != null) $sql .= ", `kondisi_coupling_img`";
+        if($kondisi_landing_valve_img != null) $sql .= ", `kondisi_landing_valve_img`";
+        if($kondisi_tray_img != null) $sql .= ", `kondisi_tray_img`";
+
+        $sql .= ") VALUES (NULL, '$user_id', '$hydrant_id', '$kondisi_kotak', '$posisi_kotak', '$kondisi_nozzle', '$kondisi_selang', '$jenis_selang', '$kondisi_coupling', '$kondisi_landing_valve', '$kondisi_tray', '$durasi_inspeksi', current_timestamp()";
+
+        if($kondisi_kotak_img != null) $sql .= ", '$kondisi_kotak_img'";
+        if($posisi_kotak_img != null) $sql .= ", '$posisi_kotak_img'";
+        if($kondisi_nozzle_img != null) $sql .= ", '$kondisi_nozzle_img'";
+        if($kondisi_selang_img != null) $sql .= ", '$kondisi_selang_img'";
+        if($jenis_selang_img != null) $sql .= ", '$jenis_selang_img'";
+        if($kondisi_coupling_img != null) $sql .= ", '$kondisi_coupling_img'";
+        if($kondisi_landing_valve_img != null) $sql .= ", '$kondisi_landing_valve_img'";
+        if($kondisi_tray_img != null) $sql .= ", '$kondisi_tray_img'";
+
+        $sql .= ");";
+
         $result = mysqli_query($conn, $sql);
         if($result){
             http_response_code(200);
