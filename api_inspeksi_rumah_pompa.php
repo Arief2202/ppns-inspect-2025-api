@@ -50,6 +50,7 @@
         $pemanas_jaket;
         $kondisi_uap;
 
+        $lokasi_img;
         $kondisi_img;
         $ventilasi_img;
         $katup_hisap_img;
@@ -185,6 +186,7 @@
             }
         }
 
+        $lokasi_img = checkUploadedFile('lokasi_img');
         $kondisi_img = checkUploadedFile('kondisi_img');
         $ventilasi_img = checkUploadedFile('ventilasi_img');
         $katup_hisap_img = checkUploadedFile('katup_hisap_img');
@@ -217,6 +219,7 @@
 
         $sql = "INSERT INTO `inspeksi_rumah_pompa` (`id`, `user_id`, `lokasi`, `kondisi`, `ventilasi`, `katup_hisap`, `perpipaan`, `pengukur_hisap`, `pengukur_sistem`, `tangki_hisap`, `saringan_hisap`, `katup_uji`, `lampu_pengontrol`, `lampu_saklar`, `saklar_isolasi`, `lampu_rotasi`, `level_oli_motor`, `pompa_pemeliharaan`, `tangki_bahan_bakar`, `saklar_pemilih`, `pembacaan_tegangan`, `pembacaan_arus`, `lampu_baterai`, `semua_lampu_alarm`, `pengukur_waktu`, `ketinggian_oli`, `level_oli_mesin`, `ketinggian_air`, `tingkat_elektrolit`, `terminal_baterai`, `pemanas_jaket`, `kondisi_uap`, `durasi_inspeksi`, `timestamp`";
 
+        if($lokasi_img != null) $sql .= ", `lokasi_img`";
         if($kondisi_img != null) $sql .= ", `kondisi_img`";
         if($ventilasi_img != null) $sql .= ", `ventilasi_img`";
         if($katup_hisap_img != null) $sql .= ", `katup_hisap_img`";
@@ -249,6 +252,7 @@
 
         $sql .= ") VALUES (NULL, $user_id, '$lokasi', '$kondisi', '$ventilasi', '$katup_hisap', '$perpipaan', '$pengukur_hisap', '$pengukur_sistem', '$tangki_hisap', '$saringan_hisap', '$katup_uji', '$lampu_pengontrol', '$lampu_saklar', '$saklar_isolasi', '$lampu_rotasi', '$level_oli_motor', '$pompa_pemeliharaan', '$tangki_bahan_bakar', '$saklar_pemilih', '$pembacaan_tegangan', '$pembacaan_arus', '$lampu_baterai', '$semua_lampu_alarm', '$pengukur_waktu', '$ketinggian_oli', '$level_oli_mesin', '$ketinggian_air', '$tingkat_elektrolit', '$terminal_baterai', '$pemanas_jaket', '$kondisi_uap', '$durasi_inspeksi', current_timestamp()";
 
+        if($lokasi_img != null) $sql .= ", '$lokasi_img'";
         if($kondisi_img != null) $sql .= ", '$kondisi_img'";
         if($ventilasi_img != null) $sql .= ", '$ventilasi_img'";
         if($katup_hisap_img != null) $sql .= ", '$katup_hisap_img'";

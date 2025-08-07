@@ -297,6 +297,7 @@ CREATE TABLE `inspeksi_rumah_pompa` (
   `kondisi_uap` varchar(255) NOT NULL,
   `durasi_inspeksi` varchar(255) DEFAULT '00:00',
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `lokasi_img` varchar(255) DEFAULT NULL,
   `kondisi_img` varchar(255) DEFAULT NULL,
   `ventilasi_img` varchar(255) DEFAULT NULL,
   `katup_hisap_img` varchar(255) DEFAULT NULL,
